@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "Library.csproj", "{B5A777AD-9B15-4617-8EC2-FE4CA28C365E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7C16C7DA-E207-4AC1-BCC9-60B3424EBAD1} = {7C16C7DA-E207-4AC1-BCC9-60B3424EBAD1}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.ConsoleApp", "Presentation\Library.ConsoleApp\Library.ConsoleApp.csproj", "{7C16C7DA-E207-4AC1-BCC9-60B3424EBAD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Domain", "Logic\Library.Domain\Library.Domain.csproj", "{E7BC0A8C-1266-489B-A75D-58440E5E2837}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Persistence", "Logic\Library.Persistence\Library.Persistence.csproj", "{C222F882-E81D-422D-A739-6F60ED19510B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.LoginService", "..\Library.LoginService\Library.LoginService.csproj", "{0829DD05-B32B-4E5D-9ABF-1F36FBBB7B60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UITools", "UITools\UITools.csproj", "{7395E77F-32FA-4D8E-8380-52340D693D6B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B5A777AD-9B15-4617-8EC2-FE4CA28C365E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5A777AD-9B15-4617-8EC2-FE4CA28C365E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5A777AD-9B15-4617-8EC2-FE4CA28C365E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5A777AD-9B15-4617-8EC2-FE4CA28C365E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C16C7DA-E207-4AC1-BCC9-60B3424EBAD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C16C7DA-E207-4AC1-BCC9-60B3424EBAD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C16C7DA-E207-4AC1-BCC9-60B3424EBAD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C16C7DA-E207-4AC1-BCC9-60B3424EBAD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7BC0A8C-1266-489B-A75D-58440E5E2837}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7BC0A8C-1266-489B-A75D-58440E5E2837}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7BC0A8C-1266-489B-A75D-58440E5E2837}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7BC0A8C-1266-489B-A75D-58440E5E2837}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C222F882-E81D-422D-A739-6F60ED19510B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C222F882-E81D-422D-A739-6F60ED19510B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C222F882-E81D-422D-A739-6F60ED19510B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C222F882-E81D-422D-A739-6F60ED19510B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0829DD05-B32B-4E5D-9ABF-1F36FBBB7B60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0829DD05-B32B-4E5D-9ABF-1F36FBBB7B60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0829DD05-B32B-4E5D-9ABF-1F36FBBB7B60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0829DD05-B32B-4E5D-9ABF-1F36FBBB7B60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7395E77F-32FA-4D8E-8380-52340D693D6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7395E77F-32FA-4D8E-8380-52340D693D6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7395E77F-32FA-4D8E-8380-52340D693D6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7395E77F-32FA-4D8E-8380-52340D693D6B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FDC76B67-C4DA-4442-B735-5569ACB4242C}
+	EndGlobalSection
+EndGlobal
