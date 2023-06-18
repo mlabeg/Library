@@ -19,9 +19,9 @@ namespace Library.ConsoleApp
 			BooksRepository repository = new BooksRepository();
 			BooksService booksService = new BooksService(repository);
 			OrdersRepository ordersRepository = new OrdersRepository();
-			OrderService orderService = new OrderService(ordersRepository);
+			OrderService orderService = new OrderService(ordersRepository, repository);
 
-			MenuUITools.Menu menu = new MenuUITools.Menu();
+			Menu menu = new Menu();
 			menu.Konfiguruj(new string[] { "Dodaj", "Usun", "Wypisz", "Zmien", "Dodaj zamowienie", "Lista zamowien", "Wyjdz" });
 
 
@@ -40,7 +40,7 @@ namespace Library.ConsoleApp
 							booksService.AddBook();
 							break;
 						case 1:
-							Console.WriteLine("proba usuniecia ksiazki");
+							//Console.WriteLine("proba usuniecia ksiazki");
 							booksService.Remove();
 							break;
 						case 2:

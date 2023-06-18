@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Library.Domain;
 using Library.Persistence;
+using MenuUITools;
 
 
 namespace Library.ConsoleApp
@@ -12,14 +13,24 @@ namespace Library.ConsoleApp
 	internal class OrderService
 	{
 		private OrdersRepository _ordersRepository;
-		public OrderService(OrdersRepository ordersRepository)
+		private BooksRepository _booksRepository;
+		MenuUITools.Menu menu = new MenuUITools.Menu();
+		public OrderService(OrdersRepository ordersRepository, BooksRepository booksRepository)
 		{
 			_ordersRepository = ordersRepository;
+			_booksRepository = booksRepository;
 		}
 
 		public bool PlaceOrder()
 		{
 			Order order = new Order();
+			menu.Konfiguruj(_booksRepository.TitleAuthorList());
+			//TODO co się stanie jak dodamy jakąś pozycję, czy wy świetl się tutaj?
+
+
+
+
+
 
 			string action = "add";
 

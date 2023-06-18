@@ -106,6 +106,7 @@ namespace MenuUITools
 
         public int Wyswietl(int wiersz)
         {
+            //-1 - kod wyjścia
             if (wiersz == -1) return -1;
             int wybrany = 0;
             if (elementy != null)
