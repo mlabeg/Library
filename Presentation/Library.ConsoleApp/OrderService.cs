@@ -14,7 +14,9 @@ namespace Library.ConsoleApp
 	{
 		private OrdersRepository _ordersRepository;
 		private BooksRepository _booksRepository;
-		MenuUITools.Menu menu = new MenuUITools.Menu();
+		MenuUITools.Menu menuBooks = new MenuUITools.Menu();
+
+
 		public OrderService(OrdersRepository ordersRepository, BooksRepository booksRepository)
 		{
 			_ordersRepository = ordersRepository;
@@ -24,50 +26,48 @@ namespace Library.ConsoleApp
 		public bool PlaceOrder()
 		{
 			Order order = new Order();
-			menu.Konfiguruj(_booksRepository.TitleAuthorList());
-			//TODO co się stanie jak dodamy jakąś pozycję, czy wy świetl się tutaj?
-
-
-
-
-
-
+			menuBooks.Konfiguruj(_booksRepository.TitleAuthorProductsAvalliableList());
+			var _booksRepositoryList = _booksRepository.GetAll();
+			
+			int amount;
+			int positionChosen;
 			string action = "add";
 
-			int bookId;
-			int amount;
 			do
 			{
-				Console.WriteLine("Podaj Id ksiazki: ");
-				bookId = Convert.ToInt32(Console.ReadLine());
+				Console.Clear();
+				positionChosen = menuBooks.Wyswietl();
 
-				Console.WriteLine(" Podaj ilość: ");
-				amount = Convert.ToInt32(Console.ReadLine());
+				if (positionChosen != -1)
+				{
+					Console.Write("Podaj ilość: ");
+					amount = Convert.ToInt32(Console.ReadLine());
+					_booksRepository.GetAll();
+					BookOrdered _bookOrdered = new BookOrdered(_booksRepositoryList[positionChosen], amount);
+					order.BooksOrderedList.Add(_bookOrdered);
+				}
 
-			Console.WriteLine("\nWybierz akcje: \n Add \n End");//<-wrocić tutaj po dodaniu książki, żeby zapytać czy dodać następną
 				do
 				{
+					Console.WriteLine("\nWybierz akcje: \n Add \n End");
 					action = Console.ReadLine();
-				} while (action != "end" && action != "add");
-			} while (action != "end");
+					if ((action != "Add" && action != "End"))
+					{
+						Console.WriteLine("Nieznane polecenie!!");
+					}
+				} while (action != "Add" && action != "End");
+			} while (action != "End");
 
-
-			BookOrdered bookOrdered = new BookOrdered(bookId, amount);
-			order.BooksOrderedList.Add(bookOrdered);
-
-
-		
 			Console.ReadKey();
 
 			if (!(order is null))
 			{
 				_ordersRepository.Insert(order);
-				// Console.WriteLine("Pomyślnie dodano zamówienei do bazy!");
 				return true;
 			}
 			else
 			{
-				Console.WriteLine("Brak pozycji zamówienia zamówienia");
+				Console.WriteLine("Brak pozycji zamówienia!");
 				return false;
 			}
 		}
@@ -80,7 +80,7 @@ namespace Library.ConsoleApp
 
 	}
 }
-//TODO dopracować PlaceOrder (w tym momencie można dodać tylko 1 książkę do zamówienia), możesz dodać tu menu z poprzedniego semestru
 
 //PYTANIA jeśli nie chcicałbym, zeby np. BookOrdered było public jak udostępniać to między projektami?
+ //??
 

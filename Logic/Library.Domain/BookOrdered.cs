@@ -6,19 +6,22 @@ using System.Threading.Tasks;
 
 namespace Library.Domain
 {
-    public class BookOrdered
-    {
-        public BookOrdered()
-        {
+	public class BookOrdered
+	{
+		public BookOrdered()
+		{
 
-        }
-        public BookOrdered(int bookId, int numerOrdered)
-        {
-            BookId = bookId;
-            NumerOrdered = numerOrdered;//ilość?
-        }
+		}
+		public BookOrdered(Book bookOrdered, int numerOrdered)
+		{
+			// BookId = bookId;
+			_bookOrdered = bookOrdered;
+			NumerOrdered = numerOrdered;//ilość?
+		}
 
-        public int BookId { get; }
-        public int NumerOrdered { get; set; }
-    }
+		public Book _bookOrdered { get; }
+		//czy tutaj nie tworzysz nowej zmiennej dla tego samego obiektu? czy stosujesz tutaj wskaźnik?
+		public int BookId { get; }
+		public int NumerOrdered { get; set; }
+	}
 }

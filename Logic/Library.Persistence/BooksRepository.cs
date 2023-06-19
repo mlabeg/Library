@@ -78,7 +78,7 @@ namespace Library.Persistence
 		{
 			return _database[id];
 		}
-		public List<string> TitleAuthorList()
+		public List<string> TitleAuthorProductAvaliableList()
 		{
 			List<string> list = new List<string>();
 			for (int i = 0; i < _database.Count; i++)
@@ -87,13 +87,23 @@ namespace Library.Persistence
 			}
 			return list;
 		}
+		public List<string> TitleAuthorProductsAvalliableList()
+		{
+			List<string> list = new List<string>();
+			for (int i = 0; i < _database.Count; i++)
+			{
+				list.Add($"{_database[i].Title}\t\t{_database[i].Author}\t\t{_database[i].ProductsAvailable}"); //TODO wyrownać do prawej autorów 
+			}
+			return list;
+		}
+
 		public void MenuUpdate()
 		{
-			menu.Konfiguruj(TitleAuthorList());
+			menu.Konfiguruj(TitleAuthorProductAvaliableList());
 			//TODO2 pomyśleć tylko o update listy, zamiast zawsze tworzyć ją na nowo
 		}
 	}
 }
 
-//TODO dodać połączenie do EF
+//TODO dodać połączenie do bazy danych przez EF
 

@@ -68,15 +68,25 @@ namespace Library.ConsoleApp
 
 							break;
 						case 5:
-							foreach (Order o in orderService.ListAll())
+							if (orderService.ListAll().Count <= 0)
 							{
-								Console.WriteLine(o.Date + ": ");
-								foreach (BookOrdered b in o.BooksOrderedList)
-								{
-									var bookOrdered = repository.BookInfo(b.BookId);
-									Console.WriteLine($"\"{bookOrdered.Title}\" {bookOrdered.Author} wypożyczona ilość {b.NumerOrdered} sztuki");
-								}
+								Console.WriteLine("Brak pozycji do wyświetlenia!");
+								Console.ReadKey();
+							}
+							else
+							{
 								Console.WriteLine();
+								foreach (Order o in orderService.ListAll())
+								{
+									Console.WriteLine(o.Date + ": ");
+									foreach (BookOrdered b in o.BooksOrderedList)
+									{
+										Console.WriteLine($"\"{b._bookOrdered.Title}\" {b._bookOrdered.Author} wypożyczona ilość {b.NumerOrdered} sztuki");
+									}
+									Console.WriteLine();
+									//refaktor tak, żeby była tu tylko informacja o pomyślnym lub braku zamówień
+								}
+								Console.ReadKey();
 							}
 							break;
 						case 6:
