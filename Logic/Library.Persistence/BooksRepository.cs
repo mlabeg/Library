@@ -44,6 +44,11 @@ namespace Library.Persistence
 		}
 		public bool RemoveTitle()
 		{
+			if (_database.Count == 0)
+			{
+				Console.WriteLine("Brak pozycji w repozytorium");
+				return false;
+			}
 			int toDelete;
 			do
 			{
@@ -70,7 +75,22 @@ namespace Library.Persistence
 		}
 		public void ChangeState(string title, int stateChange)
 		{
-			_database.First(x => x.Title == title).State = stateChange;
+			if (_database.Count == 0)
+			{
+				Console.WriteLine("Brak książek w repozytorium");
+				return;
+			}
+			var book = _database.FirstOrDefault(x => x.Title == title);
+			if (book != null)
+			{
+				book.State = stateChange;
+				Console.WriteLine("Pomyślnie zmieniono status książki!");
+			}
+			else
+			{
+				Console.WriteLine("Błąd zmiany statusu książki!");
+			}
+			Console.ReadKey();
 
 		}
 		public Book BookInfo(int id)
@@ -79,18 +99,20 @@ namespace Library.Persistence
 		}
 		public List<string> TitleAuthorProductAvaliableList()
 		{
+			if (_database.Count == 0)
+			{
+				return default;
+			}
+
 			List<string> list = new List<string>();
-			//var maxDlugosc1 = _database.Select(n => n.Title.Count().);
-			//var maxDlugosc1 = _database.Aggregate("", (max, cur) => max.Length > cur.Length ? max : cur);
 			int maxDlugosc = _database.OrderByDescending(s => s.Title.Length).FirstOrDefault().Title.Length;
 
-			if (maxDlugosc != null)
+
+			for (int i = 0; i < _database.Count; i++)
 			{
-				for (int i = 0; i < _database.Count; i++)
-				{
-					list.Add($"{_database[i].Title.PadRight(maxDlugosc+5)}{_database[i].Author}");
-				}
+				list.Add($"{_database[i].Title.PadRight(maxDlugosc + 5)}{_database[i].Author}");
 			}
+
 			return list;
 		}
 		public List<string> TitleAuthorProductsAvalliableList()
@@ -101,17 +123,20 @@ namespace Library.Persistence
 
 			for (int i = 0; i < _database.Count; i++)
 			{
-				list.Add($"{_database[i].Title.PadRight(maxTitleLength+5)}" +
-					$"{_database[i].Author.PadRight(maxAuthorLength+5)}" +
-					$"{_database[i].ProductsAvailable}"); 
+				list.Add($"{_database[i].Title.PadRight(maxTitleLength + 5)}" +
+					$"{_database[i].Author.PadRight(maxAuthorLength + 5)}" +
+					$"{_database[i].ProductsAvailable}");
 			}
 			return list;
 		}
-
 		public void MenuUpdate()
 		{
 			menu.Konfiguruj(TitleAuthorProductAvaliableList());
 			//TODO2 pomyśleć tylko o update listy, zamiast zawsze tworzyć ją na nowo
+		}
+		public int DatabaseCount()
+		{
+			return _database.Count;
 		}
 	}
 }

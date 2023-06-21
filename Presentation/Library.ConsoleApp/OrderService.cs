@@ -25,26 +25,57 @@ namespace Library.ConsoleApp
 
 		public bool PlaceOrder()
 		{
-			Order order = new Order();
-			menuBooks.Konfiguruj(_booksRepository.TitleAuthorProductsAvalliableList());
-			var _booksRepositoryList = _booksRepository.GetAll();
 			
+			if (_booksRepository.DatabaseCount() == 0)
+			{
+				Console.WriteLine("Brak książek do wypożyczenia");
+				return false;
+			}
+			Order order = new Order();
+			menuBooks.Konfiguruj(this._booksRepository.TitleAuthorProductsAvalliableList());
+			var _booksRepositoryList = this._booksRepository.GetAll();
+
 			int amount;
 			int positionChosen;
 			string action = "add";
 
 			do
 			{
-				Console.Clear();
+				//Console.Clear();
 				positionChosen = menuBooks.Wyswietl();
 
 				if (positionChosen != -1)
 				{
-					Console.Write("Podaj ilość: ");
-					amount = Convert.ToInt32(Console.ReadLine());
-					_booksRepository.GetAll();
-					BookOrdered _bookOrdered = new BookOrdered(_booksRepositoryList[positionChosen], amount);
-					order.BooksOrderedList.Add(_bookOrdered);
+					int booksAvailable = _booksRepositoryList[positionChosen].ProductsAvailable;
+					if (booksAvailable > 0)
+					{
+						do
+						{
+							Console.Write("Podaj ilość: ");
+						} while (!int.TryParse(Console.ReadLine(), out amount));
+
+						if (amount <= 0)
+						{
+							Console.WriteLine("Ilość musi być mniejsza niż 0!");
+						}
+						else if (amount > booksAvailable)
+						{
+							Console.WriteLine("Brak wystarczającej ilości książek!");
+						}
+						else
+						{
+							BookOrdered _bookOrdered = new BookOrdered(_booksRepositoryList[positionChosen], amount);
+							_booksRepositoryList[positionChosen].ProductsAvailable -= amount;
+							order.BooksOrderedList.Add(_bookOrdered);
+							menuBooks.Konfiguruj(this._booksRepository.TitleAuthorProductsAvalliableList());
+						}
+
+					}
+					else
+					{
+						Console.WriteLine("Brak dostępnych pozycji!");
+						Console.ReadKey();
+					}
 				}
 
 				do
@@ -58,18 +89,16 @@ namespace Library.ConsoleApp
 				} while (action != "Add" && action != "End");
 			} while (action != "End");
 
-			Console.ReadKey();
+			//Console.ReadKey();
 
-			if (!(order is null))
-			{
-				_ordersRepository.Insert(order);
-				return true;
-			}
-			else
+			if (order.BooksOrderedList.Count == 0)
 			{
 				Console.WriteLine("Brak pozycji zamówienia!");
 				return false;
 			}
+
+			_ordersRepository.Insert(order);
+			return true;
 		}
 
 
@@ -80,7 +109,8 @@ namespace Library.ConsoleApp
 
 	}
 }
+//TODO dodać możliwość zwrotów książek
 
-//PYTANIA jeśli nie chcicałbym, zeby np. BookOrdered było public jak udostępniać to między projektami?
- //??
+//TODO PYTANIA jeśli nie chcicałbym, zeby np. BookOrdered było public jak udostępniać to między projektami?
+//??
 

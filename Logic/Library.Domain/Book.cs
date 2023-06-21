@@ -15,6 +15,7 @@ namespace Library.Domain
         public string ISBN { get; set; }
 
         public int ProductsAvailable { get; set; }
+        public int ProductsTotal { get; set; }
         public decimal Price { get; set; }
 
         public int State { get; set; }      //0 - unavaliable, 1 - avaliable
@@ -31,6 +32,7 @@ namespace Library.Domain
             ISBN = isbn;
             PublicationYear = publicationYear;
             ProductsAvailable = productsAvailable;
+            ProductsTotal = productsAvailable;
             Price = price;
         }
 

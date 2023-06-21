@@ -14,9 +14,8 @@ namespace Library.Domain
 		}
 		public BookOrdered(Book bookOrdered, int numerOrdered)
 		{
-			// BookId = bookId;
 			_bookOrdered = bookOrdered;
-			NumerOrdered = numerOrdered;//ilość?
+			NumerOrdered = numerOrdered;
 		}
 
 		public Book _bookOrdered { get; }

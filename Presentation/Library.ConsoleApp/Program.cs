@@ -41,17 +41,17 @@ namespace Library.ConsoleApp
 							break;
 						case 1:
 							booksService.Remove();
+							Console.ReadKey();
 							break;
 						case 2:
 							if (!booksService.ListBooks())
 							{
 								Console.WriteLine("Brak książek w repozytorium!");
-								Console.ReadKey();
 							}
 							Console.ReadKey();
 							break;
-						//TODO wyrównać wszystkie nazwiska wyświetlane w konsoli
 						case 3:
+							//TODO albo refaktor albo wypierdolić
 							Console.WriteLine("proba zmiany stanu magazynowego ksiazek");
 							booksService.ChangeStat();
 							break;
@@ -64,7 +64,7 @@ namespace Library.ConsoleApp
 							{
 								Console.WriteLine("Błąd przy dodawaniu zamówienia!");
 							}
-
+							Console.ReadKey();
 							break;
 						case 5:
 							if (orderService.ListAll().Count <= 0)
@@ -97,5 +97,6 @@ namespace Library.ConsoleApp
 				}
 			} while (!(inputCommand == -1 || inputCommand == 6));
 		}
-	}
+	}//TODO możesz pobawić się, tak, żeby po wyjściu z jakiejś opcji w menu, znowu być na takiej wysokości
+
 }
