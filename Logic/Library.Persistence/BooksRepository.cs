@@ -43,8 +43,7 @@ namespace Library.Persistence
 			return _database;
 		}
 		public bool RemoveTitle()
-		{//SPRAWDZ DLACZEGO nie możesz usunąć pierwszej pozycji
-
+		{
 			int toDelete;
 			do
 			{
@@ -81,18 +80,30 @@ namespace Library.Persistence
 		public List<string> TitleAuthorProductAvaliableList()
 		{
 			List<string> list = new List<string>();
-			for (int i = 0; i < _database.Count; i++)
+			//var maxDlugosc1 = _database.Select(n => n.Title.Count().);
+			//var maxDlugosc1 = _database.Aggregate("", (max, cur) => max.Length > cur.Length ? max : cur);
+			int maxDlugosc = _database.OrderByDescending(s => s.Title.Length).FirstOrDefault().Title.Length;
+
+			if (maxDlugosc != null)
 			{
-				list.Add($"{_database[i].Title}\t\t{_database[i].Author}"); //TODO wyrownać do prawej autorów 
+				for (int i = 0; i < _database.Count; i++)
+				{
+					list.Add($"{_database[i].Title.PadRight(maxDlugosc+5)}{_database[i].Author}");
+				}
 			}
 			return list;
 		}
 		public List<string> TitleAuthorProductsAvalliableList()
 		{
 			List<string> list = new List<string>();
+			int maxTitleLength = _database.OrderByDescending(s => s.Title.Length).FirstOrDefault().Title.Length;
+			int maxAuthorLength = _database.OrderByDescending(s => s.Author.Length).FirstOrDefault().Author.Length;
+
 			for (int i = 0; i < _database.Count; i++)
 			{
-				list.Add($"{_database[i].Title}\t\t{_database[i].Author}\t\t{_database[i].ProductsAvailable}"); //TODO wyrownać do prawej autorów 
+				list.Add($"{_database[i].Title.PadRight(maxTitleLength+5)}" +
+					$"{_database[i].Author.PadRight(maxAuthorLength+5)}" +
+					$"{_database[i].ProductsAvailable}"); 
 			}
 			return list;
 		}

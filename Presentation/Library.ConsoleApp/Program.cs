@@ -40,7 +40,6 @@ namespace Library.ConsoleApp
 							booksService.AddBook();
 							break;
 						case 1:
-							//Console.WriteLine("proba usuniecia ksiazki");
 							booksService.Remove();
 							break;
 						case 2:
