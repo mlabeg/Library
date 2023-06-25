@@ -25,7 +25,7 @@ namespace Library.ConsoleApp
 
 		public bool PlaceOrder()
 		{
-			
+
 			if (_booksRepository.DatabaseCount() == 0)
 			{
 				Console.WriteLine("Brak książek do wypożyczenia");
@@ -102,10 +102,31 @@ namespace Library.ConsoleApp
 		}
 
 
-		public List<Order> ListAll()
+		public bool ListAll()
 		{
-			return _ordersRepository.GetAll();
+
+			if (_ordersRepository.GetAll().Count == 0)
+			{
+				return false;
+
+			}
+
+			foreach (Order o in _ordersRepository.GetAll())
+			{
+				Console.WriteLine(o.Date + ": ");
+				foreach (BookOrdered b in o.BooksOrderedList)
+				{
+					Console.WriteLine($"\"{b._bookOrdered.Title}\" {b._bookOrdered.Author} wypożyczona ilość {b.NumerOrdered} sztuki");
+				}
+				Console.WriteLine();
+				
+			}
+			return true;
+
+
 		}
+
+
 
 	}
 }

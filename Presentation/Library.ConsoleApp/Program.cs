@@ -24,7 +24,6 @@ namespace Library.ConsoleApp
 			Menu menu = new Menu();
 			menu.Konfiguruj(new string[] { "Dodaj", "Usun", "Wypisz", "Zmien", "Dodaj zamowienie", "Lista zamowien", "Wyjdz" });
 
-
 			int inputCommand;
 			do
 			{
@@ -35,27 +34,27 @@ namespace Library.ConsoleApp
 				{
 					switch (inputCommand)
 					{
-						case 0:
+						case 0: //dodaj książkę
 							Console.WriteLine("proba dodania ksiazki");
 							booksService.AddBook();
 							break;
-						case 1:
+						case 1: //usun książkę
 							booksService.Remove();
 							Console.ReadKey();
 							break;
-						case 2:
+						case 2: //lista książek
 							if (!booksService.ListBooks())
 							{
 								Console.WriteLine("Brak książek w repozytorium!");
 							}
 							Console.ReadKey();
 							break;
-						case 3:
-							//TODO albo refaktor albo wypierdolić
+						case 3: //zmiana statusu książki
+								//TODO albo refaktor albo wypierdolić
 							Console.WriteLine("proba zmiany stanu magazynowego ksiazek");
 							booksService.ChangeStat();
 							break;
-						case 4:
+						case 4: //dodaj zamówienie 
 							if (orderService.PlaceOrder())
 							{
 								Console.WriteLine("pomyślnie dodano zamówienie!");
@@ -66,29 +65,14 @@ namespace Library.ConsoleApp
 							}
 							Console.ReadKey();
 							break;
-						case 5:
-							if (orderService.ListAll().Count <= 0)
+						case 5: // wyświetl wszystkie zamówienia
+							if (!orderService.ListAll())
 							{
 								Console.WriteLine("Brak pozycji do wyświetlenia!");
-								Console.ReadKey();
 							}
-							else
-							{
-								Console.WriteLine();
-								foreach (Order o in orderService.ListAll())
-								{
-									Console.WriteLine(o.Date + ": ");
-									foreach (BookOrdered b in o.BooksOrderedList)
-									{
-										Console.WriteLine($"\"{b._bookOrdered.Title}\" {b._bookOrdered.Author} wypożyczona ilość {b.NumerOrdered} sztuki");
-									}
-									Console.WriteLine();
-									//refaktor tak, żeby była tu tylko informacja o pomyślnym lub braku zamówień
-								}
-								Console.ReadKey();
-							}
+							Console.ReadKey();
 							break;
-						case 6:
+						case 6:     //wyjscie
 							break;
 						default:
 							Console.WriteLine("Niepoprawna komenda, spróbuj jeszcze raz.");

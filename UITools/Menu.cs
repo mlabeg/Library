@@ -32,6 +32,8 @@ namespace MenuUITools
         }
         public void Konfiguruj(List<string> kontakty)
         {
+
+
             if (kontakty.Count <= 100)
             {
                 elementy=kontakty.ToArray();   
@@ -165,5 +167,11 @@ namespace MenuUITools
             Console.ResetColor();
             return wybrany;
         }
+        /*
+        public int[] Zaznacz()
+        {
+
+        }
+        */
     }
 }
