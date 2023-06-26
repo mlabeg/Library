@@ -14,8 +14,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Domain", "Logic\Lib
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Persistence", "Logic\Library.Persistence\Library.Persistence.csproj", "{C222F882-E81D-422D-A739-6F60ED19510B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.LoginService", "..\Library.LoginService\Library.LoginService.csproj", "{0829DD05-B32B-4E5D-9ABF-1F36FBBB7B60}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UITools", "UITools\UITools.csproj", "{7395E77F-32FA-4D8E-8380-52340D693D6B}"
 EndProject
 Global
@@ -40,10 +38,6 @@ Global
 		{C222F882-E81D-422D-A739-6F60ED19510B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C222F882-E81D-422D-A739-6F60ED19510B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C222F882-E81D-422D-A739-6F60ED19510B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0829DD05-B32B-4E5D-9ABF-1F36FBBB7B60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0829DD05-B32B-4E5D-9ABF-1F36FBBB7B60}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0829DD05-B32B-4E5D-9ABF-1F36FBBB7B60}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0829DD05-B32B-4E5D-9ABF-1F36FBBB7B60}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7395E77F-32FA-4D8E-8380-52340D693D6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7395E77F-32FA-4D8E-8380-52340D693D6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7395E77F-32FA-4D8E-8380-52340D693D6B}.Release|Any CPU.ActiveCfg = Release|Any CPU

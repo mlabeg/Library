@@ -52,6 +52,7 @@ namespace Library.Persistence
 			int toDelete;
 			do
 			{
+				Console.Clear();
 				toDelete = menu.Wyswietl();
 				if (toDelete == -1)
 				{
@@ -60,7 +61,7 @@ namespace Library.Persistence
 				Book toDeleteBook = _database[toDelete];
 				Console.WriteLine($"Czy na pewno usunąć {toDeleteBook.Title}? [TAK/NIE]");
 				string choice = Console.ReadLine();
-				if (choice == "TAK")
+				if (String.Compare(choice, "TAK",true)!=0)
 				{
 					_database.Remove(_database[toDelete]);
 					MenuUpdate();
@@ -141,5 +142,5 @@ namespace Library.Persistence
 	}
 }
 
-//TODO dodać połączenie do bazy danych przez EF
+//TODO 3 dodać połączenie do bazy danych przez EF
 

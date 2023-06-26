@@ -19,8 +19,13 @@ namespace Library.Domain
 		}
 
 		public Book _bookOrdered { get; }
-		//czy tutaj nie tworzysz nowej zmiennej dla tego samego obiektu? czy stosujesz tutaj wskaźnik?
-		public int BookId { get; }
+		//TODO PYTANIE czy tutaj nie tworzysz nowej zmiennej dla tego samego obiektu? czy stosujesz tutaj wskaźnik?
+		public int BookId { get; }//TODO PYTANIE czy jest to potrzbne?
 		public int NumerOrdered { get; set; }
+
+		public Book getOrderedBook()
+		{
+			return _bookOrdered;
+		}
 	}
 }

@@ -10,7 +10,7 @@ namespace Library.ConsoleApp
 {
 	internal class BooksService
 	{
-		BooksRepository _repository;
+		private readonly BooksRepository _repository;
 		public BooksService(BooksRepository booksRepository)
 		{
 			_repository = booksRepository;
@@ -24,19 +24,17 @@ namespace Library.ConsoleApp
 			string author = Console.ReadLine();
 
 			Console.WriteLine("Podaj rok wydania: ");
-			int year;
-			int.TryParse(Console.ReadLine(), out year);
+			int.TryParse(Console.ReadLine(), out int year);
 
 
 			Console.WriteLine("Podaj numer ISBN");
 			string isbn = Console.ReadLine();
 
 			Console.WriteLine("Podaj ile jest dostepnych pozycji: ");
-			int productsAvailable;
-			int.TryParse(Console.ReadLine(), out productsAvailable);
+			int.TryParse(Console.ReadLine(), out int productsAvailable);
 
 			decimal price = 0;
-			int check = 0;
+			int check;
 			do
 			{
 				check = 0;
@@ -105,10 +103,12 @@ namespace Library.ConsoleApp
 			int state = Convert.ToInt32(Console.ReadLine());
 			_repository.ChangeState(toChange, state);
 		}
+		//TODO ? czy to naprawdę jest potrzebne?
 	}
 }
 
-//TODO wyświetlenie pełnej informacji o książce
-//TODO 2 dodanie możliwości edycji już istnijących ksiązek
-//TODO 3 w sumie można to załatwić za jednym zamachem używając rozwiąznia z zeszłego semestru
+//TODO 2 wyświetlenie pełnej informacji o książce
+
+//TODO 2 dodanie możliwości edycji już istnijących ksiązek; w sumie można to załatwić za jednym zamachem używając rozwiąznia z zeszłego semestru
+
 

@@ -14,13 +14,15 @@ namespace Library.ConsoleApp
 	{
 		private OrdersRepository _ordersRepository;
 		private BooksRepository _booksRepository;
-		MenuUITools.Menu menuBooks = new MenuUITools.Menu();
+		private int _booksRepositoryCount;
+		Menu menuBooks = new Menu();
 
 
 		public OrderService(OrdersRepository ordersRepository, BooksRepository booksRepository)
 		{
 			_ordersRepository = ordersRepository;
 			_booksRepository = booksRepository;
+			_booksRepositoryCount = booksRepository.DatabaseCount();
 		}
 
 		public bool PlaceOrder()
@@ -41,7 +43,11 @@ namespace Library.ConsoleApp
 
 			do
 			{
-				//Console.Clear();
+				Console.Clear();
+				if (order.BooksOrderedList.Count != 0)
+				{
+					ListCurrentOrder(order);
+				}//TODO ? zastanów się czy nie lepiej wstawić linii 47 do powyższej funkcji - DRY, ale czy wywoływanie funkcji na puustym zamówieniu ma sens?
 				positionChosen = menuBooks.Wyswietl();
 
 				if (positionChosen != -1)
@@ -80,16 +86,18 @@ namespace Library.ConsoleApp
 
 				do
 				{
+					if (order.BooksOrderedList.Count != 0)
+					{
+						ListCurrentOrder(order);
+					}
 					Console.WriteLine("\nWybierz akcje: \n Add \n End");
 					action = Console.ReadLine();
-					if ((action != "Add" && action != "End"))
+					if (checkAction(action))
 					{
 						Console.WriteLine("Nieznane polecenie!!");
 					}
-				} while (action != "Add" && action != "End");
-			} while (action != "End");
-
-			//Console.ReadKey();
+				} while (checkAction(action));
+			} while (String.Compare(action, "end", true) != 0);
 
 			if (order.BooksOrderedList.Count == 0)
 			{
@@ -100,7 +108,28 @@ namespace Library.ConsoleApp
 			_ordersRepository.Insert(order);
 			return true;
 		}
+		//TODO 3.5 dodać sprawdzanie czy książka jest już w zamówieniu i tylko aktualizowa jej ilość
 
+		private bool checkAction(string action)
+		{
+			return String.Compare(action, "add", true) != 0 && String.Compare(action, "end", true) != 0;
+		}
+		//TODO ? czy to nie jest już zbytnie kombinowanie?
+
+		public void ListCurrentOrder(Order order)
+		{
+			Console.SetCursorPosition(0, _booksRepositoryCount + 3);
+			Console.WriteLine("Aktualne zamówienie: ");
+			foreach (var b in order.BooksOrderedList)
+			{
+				var book = b.getOrderedBook();
+
+				Console.WriteLine($"{book.Title.PadRight(25)} " +
+					$"{book.Author.PadRight(20)}" +
+					$"ilość egzemplarzy: {b.NumerOrdered}");
+				//TODO 4 możesz pokombinować z PadRight(), ale to w sumie nie takie ważne
+			}
+		}
 
 		public bool ListAll()
 		{
@@ -119,7 +148,7 @@ namespace Library.ConsoleApp
 					Console.WriteLine($"\"{b._bookOrdered.Title}\" {b._bookOrdered.Author} wypożyczona ilość {b.NumerOrdered} sztuki");
 				}
 				Console.WriteLine();
-				
+
 			}
 			return true;
 
@@ -130,8 +159,5 @@ namespace Library.ConsoleApp
 
 	}
 }
-//TODO dodać możliwość zwrotów książek
-
-//TODO PYTANIA jeśli nie chcicałbym, zeby np. BookOrdered było public jak udostępniać to między projektami?
-//??
+//TODO 1 dodać możliwość zwrotów książek
 
