@@ -15,9 +15,26 @@ namespace Library.Domain
 			Date = DateTime.Now;
 			BooksOrderedList = new List<BookOrdered>();
 		}
+		public string BooksListToString()
+		{
+			StringBuilder booksListString=new StringBuilder();
+			foreach(var b in BooksOrderedList)
+			{
+				booksListString.Append($"{b._bookOrdered.Title}\n");
+			}
+			return booksListString.ToString();
+		}
+		public void returnOrder()
+		{
+			foreach(var b in BooksOrderedList)
+			{
+				b.ReturnOrderedBooks();
+			}
+		}
 	}
+
 }
 
-//TODO 4 po dodaniu autentyfikacji można tutaj dodać infomację o tym kto to zaawia i wyświetlać wszystkie rezerwacje wg daty/uzytkownika/czego tylko chcesz
+//TODO 9  po dodaniu autentyfikacji można tutaj dodać infomację o tym kto to zaawia i wyświetlać wszystkie rezerwacje wg daty/uzytkownika/czego tylko chcesz
 
 

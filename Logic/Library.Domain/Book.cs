@@ -19,6 +19,7 @@ namespace Library.Domain
         public decimal Price { get; set; }
 
         public int State { get; set; }      //0 - unavaliable, 1 - avaliable
+        //TODO ? sprawdz czy potrzebne
 
 		public Book()
         {

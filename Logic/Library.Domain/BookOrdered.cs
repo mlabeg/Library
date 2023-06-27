@@ -20,12 +20,18 @@ namespace Library.Domain
 
 		public Book _bookOrdered { get; }
 		//TODO PYTANIE czy tutaj nie tworzysz nowej zmiennej dla tego samego obiektu? czy stosujesz tutaj wskaźnik?
-		public int BookId { get; }//TODO PYTANIE czy jest to potrzbne?
+		//TODO PYTANIE poczytaj o Dependency Injection
+
+		//public int BookId { get; }//TODO PYTANIE czy jest to potrzbne?
 		public int NumerOrdered { get; set; }
 
-		public Book getOrderedBook()
+		public Book GetOrderedBook()
 		{
 			return _bookOrdered;
+		}
+		public void ReturnOrderedBooks()
+		{
+			_bookOrdered.ProductsAvailable += NumerOrdered;
 		}
 	}
 }

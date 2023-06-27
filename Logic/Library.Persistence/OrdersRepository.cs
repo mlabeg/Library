@@ -21,5 +21,20 @@ namespace Library.Persistence
             return database;
         }
 
+        public List<string> GetOrders()
+        {
+            List<string> orders = new List<string>();
+            foreach (Order o in database)
+            {
+                orders.Add($"{o.Date}\n{o.BooksListToString()}");
+            }
+            return orders;
+        }
+        public void ReturnWholeOrder(int toReturn)
+        {
+            database[toReturn].returnOrder();
+            database.RemoveAt(toReturn);
+        }
+
     }
 }

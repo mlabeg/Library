@@ -22,7 +22,9 @@ namespace Library.ConsoleApp
 			OrderService orderService = new OrderService(ordersRepository, repository);
 
 			Menu menu = new Menu();
-			menu.Konfiguruj(new string[] { "Dodaj", "Usun", "Wypisz", "Zmien", "Dodaj zamowienie", "Lista zamowien", "Wyjdz" });
+			menu.Konfiguruj(new string[] { "Dodaj", "Usun", "Wypisz",
+				"Zmien", "Dodaj zamowienie", "Lista zamowien",
+				"Zwrot zamowienia", "Wyjdz" });
 
 			int inputCommand;
 			do
@@ -74,8 +76,9 @@ namespace Library.ConsoleApp
 							break;
 
 						case 6:							//zwrot
-
-
+							orderService.ReturnOrder();
+							//Console.ReadKey();
+							//TODO 3.5 zamiana ReturnOrders(), aby zwracała bool
 
 							break;
 						case 7:							//wyjscie
@@ -87,6 +90,5 @@ namespace Library.ConsoleApp
 				}
 			} while (!(inputCommand == -1 || inputCommand == 7));
 		}
-	}//TODO ? możesz pobawić się, tak, żeby po wyjściu z jakiejś opcji w menu, znowu być na takiej wysokości
 
 }

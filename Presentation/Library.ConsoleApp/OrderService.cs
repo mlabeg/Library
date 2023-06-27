@@ -12,10 +12,11 @@ namespace Library.ConsoleApp
 {
 	internal class OrderService
 	{
-		private OrdersRepository _ordersRepository;
-		private BooksRepository _booksRepository;
-		private int _booksRepositoryCount;
-		Menu menuBooks = new Menu();
+		private readonly OrdersRepository _ordersRepository;
+		private readonly BooksRepository _booksRepository;
+		private readonly int _booksRepositoryCount;
+		Menu booksMenu = new Menu();
+		Menu ordersMenu = new Menu();
 
 
 		public OrderService(OrdersRepository ordersRepository, BooksRepository booksRepository)
@@ -34,12 +35,12 @@ namespace Library.ConsoleApp
 				return false;
 			}
 			Order order = new Order();
-			menuBooks.Konfiguruj(this._booksRepository.TitleAuthorProductsAvalliableList());
+			booksMenu.Konfiguruj(this._booksRepository.TitleAuthorProductsAvalliableList());
 			var _booksRepositoryList = this._booksRepository.GetAll();
 
 			int amount;
 			int positionChosen;
-			string action = "add";
+			string action;
 
 			do
 			{
@@ -48,7 +49,7 @@ namespace Library.ConsoleApp
 				{
 					ListCurrentOrder(order);
 				}//TODO ? zastanów się czy nie lepiej wstawić linii 47 do powyższej funkcji - DRY, ale czy wywoływanie funkcji na puustym zamówieniu ma sens?
-				positionChosen = menuBooks.Wyswietl();
+				positionChosen = booksMenu.Wyswietl();
 
 				if (positionChosen != -1)
 				{
@@ -73,7 +74,7 @@ namespace Library.ConsoleApp
 							BookOrdered _bookOrdered = new BookOrdered(_booksRepositoryList[positionChosen], amount);
 							_booksRepositoryList[positionChosen].ProductsAvailable -= amount;
 							order.BooksOrderedList.Add(_bookOrdered);
-							menuBooks.Konfiguruj(this._booksRepository.TitleAuthorProductsAvalliableList());
+							booksMenu.Konfiguruj(this._booksRepository.TitleAuthorProductsAvalliableList());
 						}
 
 					}
@@ -82,6 +83,10 @@ namespace Library.ConsoleApp
 						Console.WriteLine("Brak dostępnych pozycji!");
 						Console.ReadKey();
 					}
+				}
+				bool CheckAction(string act)
+				{
+					return String.Compare(act, "add", true) != 0 && String.Compare(act, "end", true) != 0;
 				}
 
 				do
@@ -92,11 +97,11 @@ namespace Library.ConsoleApp
 					}
 					Console.WriteLine("\nWybierz akcje: \n Add \n End");
 					action = Console.ReadLine();
-					if (checkAction(action))
+					if (CheckAction(action))
 					{
 						Console.WriteLine("Nieznane polecenie!!");
 					}
-				} while (checkAction(action));
+				} while (CheckAction(action));
 			} while (String.Compare(action, "end", true) != 0);
 
 			if (order.BooksOrderedList.Count == 0)
@@ -108,13 +113,9 @@ namespace Library.ConsoleApp
 			_ordersRepository.Insert(order);
 			return true;
 		}
-		//TODO 3.5 dodać sprawdzanie czy książka jest już w zamówieniu i tylko aktualizowa jej ilość
+		//TODO 2 dodać sprawdzanie czy książka jest już w zamówieniu i tylko aktualizowa jej ilość
 
-		private bool checkAction(string action)
-		{
-			return String.Compare(action, "add", true) != 0 && String.Compare(action, "end", true) != 0;
-		}
-		//TODO ? czy to nie jest już zbytnie kombinowanie?
+		
 
 		public void ListCurrentOrder(Order order)
 		{
@@ -122,7 +123,7 @@ namespace Library.ConsoleApp
 			Console.WriteLine("Aktualne zamówienie: ");
 			foreach (var b in order.BooksOrderedList)
 			{
-				var book = b.getOrderedBook();
+				var book = b.GetOrderedBook();
 
 				Console.WriteLine($"{book.Title.PadRight(25)} " +
 					$"{book.Author.PadRight(20)}" +
@@ -155,9 +156,67 @@ namespace Library.ConsoleApp
 
 		}
 
+		public void ReturnOrder()
+		{
+			ordersMenu.Konfiguruj(this._ordersRepository.GetOrders());
+			Menu orderChoiceMenu = new Menu();
+			orderChoiceMenu.Konfiguruj(new string[] { "Zwroc cale zamowienie", "Zwroc wybrane pozycje" });
+			string choice="";
+			int toReturn, returnAction;
+
+			do
+			{
+				Console.Clear();
+				toReturn = ordersMenu.Wyswietl();
+				if (toReturn < 0)
+				{
+					return;
+				}
+				returnAction = orderChoiceMenu.Wyswietl(toReturn);
+				//TODO 3.5 poprawić wysokość wyświetlania 
+				if (returnAction < 0)
+				{
+					//break;
+				}
+				else if (returnAction == 0)
+				{
+					Console.WriteLine("Na pewno zwrócić książki z wybranej pozycji? [Tak/Nie] ");
+					choice = Console.ReadLine();
+				}
+				else if (returnAction == 1)
+				{
+					Console.WriteLine("in progress");
+					Console.ReadKey();
+					//break;
+				}
+
+
+
+			} while (String.Compare(choice, "TAK", true) != 0);
+			if (returnAction == 0)
+			{
+				_ordersRepository.ReturnWholeOrder(toReturn);
+			}
+		}
+		//TODO 7 ostatnia linia ma więcej białych znaków jeśli nazwa książki jest krótsza
+		public void ReturnBooksFromOrder()
+		{
+			ordersMenu.Konfiguruj(this._ordersRepository.GetOrders());
+			Console.Clear();
+			bool[] toReturn = booksMenu.Zaznacz();
+			for (int i = 0; i < toReturn.Length; i++)
+			{
+				if (toReturn[i])
+				{
+
+				}
+			}
+
+		}
+
 
 
 	}
 }
-//TODO 1 dodać możliwość zwrotów książek
+//TODO 3 możliwość zwrotu pojedynczych książek za zamówienia
 

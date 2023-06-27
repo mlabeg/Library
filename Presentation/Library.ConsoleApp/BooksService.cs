@@ -109,6 +109,6 @@ namespace Library.ConsoleApp
 
 //TODO 2 wyświetlenie pełnej informacji o książce
 
-//TODO 2 dodanie możliwości edycji już istnijących ksiązek; w sumie można to załatwić za jednym zamachem używając rozwiąznia z zeszłego semestru
+//TODO 4 dodanie możliwości edycji już istnijących ksiązek; w sumie można to załatwić za jednym zamachem używając rozwiąznia z zeszłego semestru
 
 
