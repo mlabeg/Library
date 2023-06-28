@@ -114,7 +114,7 @@ namespace MenuUITools
 						{
 							Console.BackgroundColor = ConsoleColor.DarkBlue;
 						}
-						Console.SetCursorPosition(25, wiersz + i);
+						Console.SetCursorPosition(0, wiersz + i);
 						Console.WriteLine(elementy[i].PadRight(najdluzszyElement + 2));
 					}
 
@@ -153,22 +153,7 @@ namespace MenuUITools
 			Console.ResetColor();
 			return wybrany;
 		}
-		/*
-				public bool[] Zaznacz(bool[] wybraneInput)
-				{
-					bool[] wybrane;
-
-					if (wybraneInput == null)
-					{
-						wybrane = new bool[elementy.Length];
-					}
-					else
-					{
-						wybrane = wybraneInput;
-					}
-					return Zaznacz();
-
-				}*/
+		
 		public bool[] Zaznacz()
 		{
 			bool[] wybrane = new bool[elementy.Length];

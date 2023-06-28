@@ -49,6 +49,8 @@ namespace Library.ConsoleApp
 				{
 					ListCurrentOrder(order);
 				}//TODO ? zastanów się czy nie lepiej wstawić linii 47 do powyższej funkcji - DRY, ale czy wywoływanie funkcji na puustym zamówieniu ma sens?
+					//TODO 3 sprawdz jeszcze te linijki, czy tu nie odwołujesz się do wszystkich zamówień zamiast tylko do tego obecnego?
+
 				positionChosen = booksMenu.Wyswietl();
 
 				if (positionChosen != -1)
@@ -71,10 +73,20 @@ namespace Library.ConsoleApp
 						}
 						else
 						{
-							BookOrdered _bookOrdered = new BookOrdered(_booksRepositoryList[positionChosen], amount);
-							_booksRepositoryList[positionChosen].ProductsAvailable -= amount;
-							order.BooksOrderedList.Add(_bookOrdered);
-							booksMenu.Konfiguruj(this._booksRepository.TitleAuthorProductsAvalliableList());
+
+							var orderPosition = order.BooksOrderedList.FirstOrDefault(b => b._bookOrdered == _booksRepositoryList[positionChosen]);
+							if (orderPosition != null)
+							{
+								orderPosition.NumerOrdered += amount;
+							}
+							else
+							{
+								BookOrdered _bookOrdered = new BookOrdered(_booksRepositoryList[positionChosen], amount);
+								_booksRepositoryList[positionChosen].ProductsAvailable -= amount;
+								order.BooksOrderedList.Add(_bookOrdered);
+								booksMenu.Konfiguruj(this._booksRepository.TitleAuthorProductsAvalliableList());
+							}
+
 						}
 
 					}
@@ -113,11 +125,11 @@ namespace Library.ConsoleApp
 			_ordersRepository.Insert(order);
 			return true;
 		}
-		//TODO 2 dodać sprawdzanie czy książka jest już w zamówieniu i tylko aktualizowa jej ilość
 
-		
 
-		public void ListCurrentOrder(Order order)
+
+
+		private void ListCurrentOrder(Order order)
 		{
 			Console.SetCursorPosition(0, _booksRepositoryCount + 3);
 			Console.WriteLine("Aktualne zamówienie: ");
@@ -128,7 +140,6 @@ namespace Library.ConsoleApp
 				Console.WriteLine($"{book.Title.PadRight(25)} " +
 					$"{book.Author.PadRight(20)}" +
 					$"ilość egzemplarzy: {b.NumerOrdered}");
-				//TODO 4 możesz pokombinować z PadRight(), ale to w sumie nie takie ważne
 			}
 		}
 
@@ -161,7 +172,7 @@ namespace Library.ConsoleApp
 			ordersMenu.Konfiguruj(this._ordersRepository.GetOrders());
 			Menu orderChoiceMenu = new Menu();
 			orderChoiceMenu.Konfiguruj(new string[] { "Zwroc cale zamowienie", "Zwroc wybrane pozycje" });
-			string choice="";
+			string choice = "";
 			int toReturn, returnAction;
 
 			do
@@ -172,33 +183,29 @@ namespace Library.ConsoleApp
 				{
 					return;
 				}
-				returnAction = orderChoiceMenu.Wyswietl(toReturn);
-				//TODO 3.5 poprawić wysokość wyświetlania 
-				if (returnAction < 0)
-				{
-					//break;
-				}
-				else if (returnAction == 0)
+				var rowCount = _ordersRepository.BooksAndOrdersCount();
+				returnAction = orderChoiceMenu.Wyswietl(rowCount);
+
+				Console.SetCursorPosition(0, rowCount+3);
+				if (returnAction == 0)
 				{
 					Console.WriteLine("Na pewno zwrócić książki z wybranej pozycji? [Tak/Nie] ");
 					choice = Console.ReadLine();
 				}
 				else if (returnAction == 1)
 				{
-					Console.WriteLine("in progress");
+					Console.WriteLine("Usługa w przygotowaniu!");
+					Console.WriteLine("Naciśnij dowolny klawisz.");
 					Console.ReadKey();
-					//break;
 				}
-
-
-
 			} while (String.Compare(choice, "TAK", true) != 0);
+
 			if (returnAction == 0)
 			{
 				_ordersRepository.ReturnWholeOrder(toReturn);
 			}
 		}
-		//TODO 7 ostatnia linia ma więcej białych znaków jeśli nazwa książki jest krótsza
+
 		public void ReturnBooksFromOrder()
 		{
 			ordersMenu.Konfiguruj(this._ordersRepository.GetOrders());
@@ -218,5 +225,5 @@ namespace Library.ConsoleApp
 
 	}
 }
-//TODO 3 możliwość zwrotu pojedynczych książek za zamówienia
+//TODO 3? możliwość zwrotu pojedynczych książek za zamówienia - trochę już pod to napisałeś
 

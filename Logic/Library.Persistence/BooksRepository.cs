@@ -142,5 +142,3 @@ namespace Library.Persistence
 	}
 }
 
-//TODO 1 dodać połączenie do bazy danych przez EF
-

@@ -20,7 +20,7 @@ namespace Library.Domain
 			StringBuilder booksListString=new StringBuilder();
 			foreach(var b in BooksOrderedList)
 			{
-				booksListString.Append($"{b._bookOrdered.Title}\n");
+				booksListString.Append($"{b._bookOrdered.Title.PadRight(25)}{b.NumerOrdered}\n");
 			}
 			return booksListString.ToString();
 		}

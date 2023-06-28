@@ -15,7 +15,6 @@ namespace Library.ConsoleApp
 	{
 		static void Main(string[] args)
 		{
-			//Book book = new Book("Zamieć", "Neal Stephenson", 1992, "83-7150-531-0", 1, 29.50m);
 			BooksRepository repository = new BooksRepository();
 			BooksService booksService = new BooksService(repository);
 			OrdersRepository ordersRepository = new OrdersRepository();
@@ -36,27 +35,27 @@ namespace Library.ConsoleApp
 				{
 					switch (inputCommand)
 					{
-						case 0:							//dodaj książkę
+						case 0:                         //dodaj książkę
 							Console.WriteLine("proba dodania ksiazki");
 							booksService.AddBook();
 							break;
-						case 1:							//usun książkę
+						case 1:                         //usun książkę
 							booksService.Remove();
 							Console.ReadKey();
 							break;
-						case 2:							//lista książek
+						case 2:                         //lista książek
 							if (!booksService.ListBooks())
 							{
 								Console.WriteLine("Brak książek w repozytorium!");
 							}
 							Console.ReadKey();
 							break;
-						case 3:							//zmiana statusu książki
-								//TODO ? albo refaktor albo usunąć
+						case 3:                         //zmiana statusu książki
+														//TODO ? albo refaktor albo usunąć
 							Console.WriteLine("proba zmiany stanu magazynowego ksiazek");
 							booksService.ChangeStat();
 							break;
-						case 4:							//dodaj zamówienie 
+						case 4:                         //dodaj zamówienie 
 							if (orderService.PlaceOrder())
 							{
 								Console.WriteLine("pomyślnie dodano zamówienie!");
@@ -67,7 +66,7 @@ namespace Library.ConsoleApp
 							}
 							Console.ReadKey();
 							break;
-						case 5:							// wyświetl wszystkie zamówienia
+						case 5:                         // wyświetl wszystkie zamówienia
 							if (!orderService.ListAll())
 							{
 								Console.WriteLine("Brak pozycji do wyświetlenia!");
@@ -75,13 +74,13 @@ namespace Library.ConsoleApp
 							Console.ReadKey();
 							break;
 
-						case 6:							//zwrot
+						case 6:                         //zwrot
 							orderService.ReturnOrder();
 							//Console.ReadKey();
-							//TODO 3.5 zamiana ReturnOrders(), aby zwracała bool
+							//TODO 2.5 zamiana ReturnOrders(), aby zwracała bool
 
 							break;
-						case 7:							//wyjscie
+						case 7:                         //wyjscie
 							break;
 						default:
 							Console.WriteLine("Niepoprawna komenda, spróbuj jeszcze raz.");
@@ -91,4 +90,5 @@ namespace Library.ConsoleApp
 			} while (!(inputCommand == -1 || inputCommand == 7));
 		}
 
+	}
 }
