@@ -37,7 +37,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Library.ConsoleApp\Library.ConsoleApp.csproj">
+    <ProjectReference Include="Presentation\Library.ConsoleApp\Library.ConsoleApp.csproj">
       <Project>{7c16c7da-e207-4ac1-bcc9-60b3424ebad1}</Project>
       <Name>Library.ConsoleApp</Name>
     </ProjectReference>
