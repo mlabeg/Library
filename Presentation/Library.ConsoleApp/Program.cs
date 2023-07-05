@@ -12,6 +12,7 @@ namespace Library.ConsoleApp
 			BooksService booksService = new BooksService(bookRepository);
 			OrdersRepository ordersRepository = new OrdersRepository();
 			OrderService orderService = new OrderService(ordersRepository, bookRepository);
+			LibrarySeeder librarySeeder = new LibrarySeeder(bookRepository, ordersRepository);
 
 			Menu menu = new Menu();
 			menu.Konfiguruj(new string[] { "Dodaj", "Usuń", "Lista książek",
@@ -43,7 +44,7 @@ namespace Library.ConsoleApp
 							{
 								Console.WriteLine("Brak książek w repozytorium!");
 							}
-							Console.ReadKey();
+							//Console.ReadKey();
 							break;
 
 						case 3:                         //dodaj zamówienie
@@ -67,10 +68,15 @@ namespace Library.ConsoleApp
 							break;
 
 						case 5:                         //zwrot
-							orderService.ReturnOrder();
-							//Console.ReadKey();
-							//TODO 2.5 zamiana ReturnOrders(), aby zwracała bool
-
+							if (ordersRepository.GetCount() == 0)
+							{
+								Console.WriteLine("Brak zamówień w repozytorium!");
+								Console.ReadKey();
+							}
+							else
+							{
+								orderService.ReturnOrder();
+							}
 							break;
 
 						case 6:                         //wyjscie

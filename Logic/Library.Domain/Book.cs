@@ -14,7 +14,6 @@ namespace Library.Domain
 		public decimal Price { get; set; }
 
 		public int State { get; set; }      //0 - unavaliable, 1 - avaliable
-											
 
 		public Book()
 		{
@@ -36,9 +35,10 @@ namespace Library.Domain
 		{
 			return $"Title: {Title} Author: {Author} ProductsAvailable: {ProductsAvailable}";
 		}
+
 		public void getFullInfo()
 		{
-			System.Console.WriteLine("Title:".PadRight(20)+Title);
+			System.Console.WriteLine("Title:".PadRight(20) + Title);
 			System.Console.WriteLine("Author:".PadRight(20) + Author);
 			System.Console.WriteLine("Publication year:".PadRight(20) + PublicationYear);
 			System.Console.WriteLine("ISBN:".PadRight(20) + ISBN);
@@ -46,8 +46,6 @@ namespace Library.Domain
 			System.Console.WriteLine("Products Total:".PadRight(20) + ProductsTotal);
 			System.Console.WriteLine("Price:".PadRight(20) + Price);
 			Console.ReadKey();
-
-
 		}
 	}
 }

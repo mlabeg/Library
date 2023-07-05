@@ -5,7 +5,7 @@ namespace Library.Persistence
 {
 	public class OrdersRepository
 	{
-		private List<Order> database = new List<Order>();
+		public List<Order> database = new List<Order>();
 
 		public void Insert(Order order)
 		{
@@ -26,6 +26,7 @@ namespace Library.Persistence
 			}
 			return orders;
 		}
+
 		public Order GetOrder(int position)
 		{
 			return database[position];
@@ -48,8 +49,10 @@ namespace Library.Persistence
 			booksAndOrdersCount += 2 * database.Count;
 			return booksAndOrdersCount;
 		}
+
+		public int GetCount()
+		{
+			return database.Count;
+		}
 	}
 }
-
-//TODO 0 przejrzeć wszystkie nieużywane metody i je usunąć
-// TODO 0 sprawdzić konwencję nazywania zmiennych 

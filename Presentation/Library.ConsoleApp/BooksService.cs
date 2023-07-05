@@ -4,7 +4,6 @@ using MenuUITools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Serialization;
 
 namespace Library.ConsoleApp
 {
@@ -16,6 +15,40 @@ namespace Library.ConsoleApp
 		public BooksService(BooksRepository booksRepository)
 		{
 			_repository = booksRepository;
+		}
+
+		internal bool ListBook_v1()
+		{
+			List<Book> repository = _repository.GetAll();
+
+			if (repository.Count == 0)
+			{
+				return false;
+			}
+			Console.WriteLine();
+			int maxDlugosc = repository.OrderByDescending(s => s.Title.Length).FirstOrDefault().Title.Length;
+
+			for (int i = 0; i < repository.Count; i++)
+			{
+				//działa poprawnie do 999. pozycji w repozytorium
+				//potrzebne, żeby pozycje książek równo się wyświetlały
+				if (i < 9)
+				{
+					Console.WriteLine($"{i + 1}.  {repository[i].Title.PadRight(maxDlugosc + 6)}" +
+						$"{repository[i].Author.PadRight(20)}{repository[i].ProductsAvailable}");
+				}
+				else if (i < 99)
+				{
+					Console.WriteLine($"{i + 1}. {repository[i].Title.PadRight(maxDlugosc + 6)}" +
+						$"{repository[i].Author.PadRight(20)}{repository[i].ProductsAvailable}");
+				}
+				else
+				{
+					Console.WriteLine($"{i + 1}.{repository[i].Title.PadRight(maxDlugosc + 6)}" +
+						$"{repository[i].Author.PadRight(20)}{repository[i].ProductsAvailable}");
+				}
+			}
+			return true;
 		}
 
 		internal void AddBook()
@@ -67,40 +100,6 @@ namespace Library.ConsoleApp
 			_repository.RemoveTitle();
 		}
 
-		internal bool ListBooks1()
-		{
-			List<Book> repository = _repository.GetAll();
-
-			if (repository.Count == 0)
-			{
-				return false;
-			}
-			Console.WriteLine();
-			int maxDlugosc = repository.OrderByDescending(s => s.Title.Length).FirstOrDefault().Title.Length;
-
-			for (int i = 0; i < repository.Count; i++)
-			{
-				//działa poprawnie do 999. pozycji w repozytorium
-				//potrzebne, żeby pozycje książek równo się wyświetlały
-				if (i < 9)
-				{
-					Console.WriteLine($"{i + 1}.  {repository[i].Title.PadRight(maxDlugosc + 6)}" +
-						$"{repository[i].Author.PadRight(20)}{repository[i].ProductsAvailable}");
-				}
-				else if (i < 99)
-				{
-					Console.WriteLine($"{i + 1}. {repository[i].Title.PadRight(maxDlugosc + 6)}" +
-						$"{repository[i].Author.PadRight(20)}{repository[i].ProductsAvailable}");
-				}
-				else
-				{
-					Console.WriteLine($"{i + 1}.{repository[i].Title.PadRight(maxDlugosc + 6)}" +
-						$"{repository[i].Author.PadRight(20)}{repository[i].ProductsAvailable}");
-				}
-			}
-			return true;
-		}
-
 		public bool ListBooks()
 		{
 			if (_repository.DatabaseCount() == 0)
@@ -116,12 +115,13 @@ namespace Library.ConsoleApp
 				Console.WriteLine();
 				if (choice > 0)
 				{
-					_repository.GetBookFullInfo(choice);
+					_repository.GetBooksFullInfo(choice);
 				}
 			} while (choice != -1);
 
 			return true;
 		}
+
 		internal void ChangeStat()
 		{
 			Console.WriteLine("Podaj tytuł książki do zmiany statusu: ");
@@ -132,7 +132,3 @@ namespace Library.ConsoleApp
 		}
 	}
 }
-
-//TODO 2 wyświetlenie pełnej informacji o książce
-
-//TODO 4 dodanie możliwości edycji już istnijących ksiązek; w sumie można to załatwić za jednym zamachem używając rozwiąznia z zeszłego semestru

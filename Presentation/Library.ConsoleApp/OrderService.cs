@@ -198,7 +198,3 @@ namespace Library.ConsoleApp
 		}
 	}
 }
-
-//TODO 4 możliwość zwrotu określonej liczby książek z konkretnej pozycji danego zamówienia
-
-//TODO PYTANIA czy tworząc obiekt klasy OrderService powinienem wstrzyknąć do niego obiekt booksMenu z klasy BooksRepostory?

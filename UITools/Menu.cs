@@ -1,9 +1,5 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
-using System.Xml;
-using System.Windows.Forms;
 
 namespace MenuUITools
 {
@@ -11,6 +7,7 @@ namespace MenuUITools
 	{
 		private String[] elementy;
 		public int najdluzszyElement;
+
 		public Menu()
 		{
 			najdluzszyElement = 0;
@@ -37,7 +34,7 @@ namespace MenuUITools
 
 		public void Uaktualnij(string[] elementyMenu)
 		{
-			elementy= elementyMenu;
+			elementy = elementyMenu;
 		}
 
 		public void Konfiguruj(List<string> lista)
@@ -48,7 +45,7 @@ namespace MenuUITools
 
 		public int Wyswietl()
 		{
-			// Console.Clear();
+			// Console.Clear();	//używając metody Wyswietl() pamiętać, żeby przed wywołaniem użyć Console.Clear();
 			int wybrany = 0;
 			if (elementy != null)
 			{
@@ -169,7 +166,7 @@ namespace MenuUITools
 			{
 				ConsoleKeyInfo keyInfo;
 				Console.BackgroundColor = ConsoleColor.DarkBlue;
-				
+
 				do
 				{
 					Console.SetCursorPosition(0, 0);
@@ -224,7 +221,7 @@ namespace MenuUITools
 						string choice = Console.ReadLine();
 						if (String.Compare(choice, "TAK", true) == 0)
 						{
-							przerwijPetle = true;							
+							przerwijPetle = true;
 						}
 					}
 					else if (keyInfo.Key == ConsoleKey.Escape)

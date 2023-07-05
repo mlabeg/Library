@@ -9,6 +9,12 @@ namespace Library.Domain
 		public DateTime Date { get; }
 		public List<BookOrdered> BooksOrderedList;
 
+		public Order(List<BookOrdered> booksOrderedList)
+		{
+			BooksOrderedList = booksOrderedList;
+			Date = DateTime.Now;
+		}
+
 		public Order()
 		{
 			Date = DateTime.Now;
@@ -35,13 +41,14 @@ namespace Library.Domain
 
 		public void returnBooksFromOrder(bool[] toReturn)
 		{
-			if(toReturn.Length > BooksOrderedList.Count) {
+			if (toReturn.Length > BooksOrderedList.Count)
+			{
 				Console.WriteLine("zjebalo sie");
 				Console.ReadKey();
 			}
-			for(int i=0;i<BooksOrderedList.Count;i++)
+			for (int i = 0; i < BooksOrderedList.Count; i++)
 			{
-				if(toReturn[i])
+				if (toReturn[i])
 				{
 					BooksOrderedList[i].ReturnOrderedBooks();
 					BooksOrderedList.RemoveAt(i);
@@ -59,8 +66,5 @@ namespace Library.Domain
 			}
 			return list;
 		}
-
 	}
 }
-
-//TODO 9  po dodaniu autentyfikacji można tutaj dodać infomację o tym kto to zaawia i wyświetlać wszystkie rezerwacje wg daty/uzytkownika/czego tylko chcesz
