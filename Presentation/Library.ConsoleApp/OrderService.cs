@@ -194,8 +194,7 @@ namespace Library.ConsoleApp
 				{
 					/*Console.WriteLine("Usługa w przygotowaniu!");*/
 					ReturnBooksFromOrder(_ordersRepository.GetOrder(toReturn));
-					Console.WriteLine("Naciśnij dowolny klawisz.");
-					Console.ReadKey();
+					choice = "TAK";
 				}
 			} while (String.Compare(choice, "TAK", true) != 0);
 
@@ -216,3 +215,4 @@ namespace Library.ConsoleApp
 }
 
 //TODO 3? możliwość zwrotu pojedynczych książek za zamówienia - trochę już pod to napisałeś
+//TODO

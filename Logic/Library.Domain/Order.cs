@@ -45,7 +45,7 @@ namespace Library.Domain
 				{
 					BooksOrderedList[i].ReturnOrderedBooks();
 					BooksOrderedList.RemoveAt(i);
-					i++;
+					i--;
 				}
 			}
 		}

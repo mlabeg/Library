@@ -1,5 +1,6 @@
 ﻿using Library.Domain;
 using Library.Persistence;
+using MenuUITools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace Library.ConsoleApp
 	internal class BooksService
 	{
 		private readonly BooksRepository _repository;
+		private Menu menu = new Menu();
 
 		public BooksService(BooksRepository booksRepository)
 		{
@@ -81,23 +83,27 @@ namespace Library.ConsoleApp
 				//potrzebne, żeby pozycje książek równo się wyświetlały
 				if (i < 9)
 				{
-					Console.WriteLine($"{i + 1}. {repository[i].Title.PadRight(maxDlugosc + 6)}" +
-						$"{repository[i].Author.PadRight(15)}{repository[i].ProductsAvailable}");
+					Console.WriteLine($"{i + 1}.  {repository[i].Title.PadRight(maxDlugosc + 6)}" +
+						$"{repository[i].Author.PadRight(20)}{repository[i].ProductsAvailable}");
 				}
 				else if (i < 99)
 				{
-					Console.WriteLine($"{i + 1}. {repository[i].Title.PadRight(maxDlugosc + 5)}" +
-						$"{repository[i].Author.PadRight(15)}{repository[i].ProductsAvailable}");
+					Console.WriteLine($"{i + 1}. {repository[i].Title.PadRight(maxDlugosc + 6)}" +
+						$"{repository[i].Author.PadRight(20)}{repository[i].ProductsAvailable}");
 				}
 				else
 				{
-					Console.WriteLine($"{i + 1}. {repository[i].Title.PadRight(maxDlugosc + 4)}" +
-						$"{repository[i].Author.PadRight(15)}{repository[i].ProductsAvailable}");
+					Console.WriteLine($"{i + 1}.{repository[i].Title.PadRight(maxDlugosc + 6)}" +
+						$"{repository[i].Author.PadRight(20)}{repository[i].ProductsAvailable}");
 				}
 			}
 			return true;
 		}
 
+		public bool ListBooks1()
+		{
+
+		}
 		internal void ChangeStat()
 		{
 			Console.WriteLine("Podaj tytuł książki do zmiany statusu: ");
