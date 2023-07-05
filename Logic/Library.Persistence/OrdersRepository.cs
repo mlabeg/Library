@@ -1,9 +1,5 @@
 ﻿using Library.Domain;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Library.Persistence
 {
@@ -30,12 +26,18 @@ namespace Library.Persistence
 			}
 			return orders;
 		}
+		public Order GetOrder(int position)
+		{
+			return database[position];
+		}
+
 		public void ReturnWholeOrder(int toReturn)
 		{
 			database[toReturn].returnOrder();
 			database.RemoveAt(toReturn);
 		}
-		public int BooksAndOrdersCount()		//przesuwanie w dół wyświetlanego komunikatu
+
+		public int BooksAndOrdersCount()        //przesuwanie w dół wyświetlanego komunikatu
 		{
 			int booksAndOrdersCount = 0;
 
@@ -43,8 +45,12 @@ namespace Library.Persistence
 			{
 				booksAndOrdersCount += o.BooksOrderedList.Count;
 			}
-			booksAndOrdersCount+= 2*database.Count;
+			booksAndOrdersCount += 2 * database.Count;
 			return booksAndOrdersCount;
 		}
 	}
 }
+
+//TODO 0 dodać kilka zamówień w konstruktorze
+//TODO 0 przejrzeć wszystkie nieużywane metody i je usunąć
+// TODO 0 sprawdzić konwencję nazywania zmiennych 

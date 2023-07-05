@@ -3,14 +3,13 @@ using Library.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Library.ConsoleApp
 {
 	internal class BooksService
 	{
 		private readonly BooksRepository _repository;
+
 		public BooksService(BooksRepository booksRepository)
 		{
 			_repository = booksRepository;
@@ -25,7 +24,6 @@ namespace Library.ConsoleApp
 
 			Console.WriteLine("Podaj rok wydania: ");
 			int.TryParse(Console.ReadLine(), out int year);
-
 
 			Console.WriteLine("Podaj numer ISBN");
 			string isbn = Console.ReadLine();
@@ -53,19 +51,19 @@ namespace Library.ConsoleApp
 					Console.WriteLine("Bląd ceny!");
 					check = 1;
 				}
-
 			} while (check == 1);
-
 
 			Book newBook = new Book(title, author, year, isbn, productsAvailable, price);
 			_repository.Insert(newBook);
 
 			Console.WriteLine("Pomyślnie dodano książkę!");
 		}
+
 		internal void Remove()
 		{
 			_repository.RemoveTitle();
 		}
+
 		internal bool ListBooks()
 		{
 			List<Book> repository = _repository.GetAll();
@@ -80,21 +78,26 @@ namespace Library.ConsoleApp
 			for (int i = 0; i < repository.Count; i++)
 			{
 				//działa poprawnie do 999. pozycji w repozytorium
+				//potrzebne, żeby pozycje książek równo się wyświetlały
 				if (i < 9)
 				{
-					Console.WriteLine($"{i + 1}. {repository[i].Title.PadRight(maxDlugosc + 6)}{repository[i].Author}");
+					Console.WriteLine($"{i + 1}. {repository[i].Title.PadRight(maxDlugosc + 6)}" +
+						$"{repository[i].Author.PadRight(15)}{repository[i].ProductsAvailable}");
 				}
-				else if(i<99)
+				else if (i < 99)
 				{
-					Console.WriteLine($"{i + 1}. {repository[i].Title.PadRight(maxDlugosc + 5)}{repository[i].Author}");
+					Console.WriteLine($"{i + 1}. {repository[i].Title.PadRight(maxDlugosc + 5)}" +
+						$"{repository[i].Author.PadRight(15)}{repository[i].ProductsAvailable}");
 				}
 				else
 				{
-					Console.WriteLine($"{i + 1}. {repository[i].Title.PadRight(maxDlugosc + 4)}{repository[i].Author}");
+					Console.WriteLine($"{i + 1}. {repository[i].Title.PadRight(maxDlugosc + 4)}" +
+						$"{repository[i].Author.PadRight(15)}{repository[i].ProductsAvailable}");
 				}
 			}
 			return true;
 		}
+
 		internal void ChangeStat()
 		{
 			Console.WriteLine("Podaj tytuł książki do zmiany statusu: ");
@@ -103,12 +106,9 @@ namespace Library.ConsoleApp
 			int state = Convert.ToInt32(Console.ReadLine());
 			_repository.ChangeState(toChange, state);
 		}
-		//TODO ? czy to naprawdę jest potrzebne?
 	}
 }
 
 //TODO 2 wyświetlenie pełnej informacji o książce
 
 //TODO 4 dodanie możliwości edycji już istnijących ksiązek; w sumie można to załatwić za jednym zamachem używając rozwiąznia z zeszłego semestru
-
-

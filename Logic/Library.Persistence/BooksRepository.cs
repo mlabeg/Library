@@ -1,20 +1,15 @@
-﻿using MenuUITools;
-using Library.Domain;
+﻿using Library.Domain;
+using MenuUITools;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
-using System.Data.SqlTypes;
 
 namespace Library.Persistence
 {
 	public class BooksRepository
 	{
 		public Menu menu = new Menu();
-		readonly List<Book> _database = new List<Book>();
+		private readonly List<Book> _database = new List<Book>();
 
 		public BooksRepository()
 		{
@@ -31,6 +26,7 @@ namespace Library.Persistence
 
 			MenuUpdate();
 		}
+		//TODO 0 sprawdz czy nie dodać tych książek inaczej, jakoś ładniej
 
 
 		public void Insert(Book book)
@@ -38,10 +34,12 @@ namespace Library.Persistence
 			_database.Add(book);
 			MenuUpdate();
 		}
+
 		public List<Book> GetAll()
 		{
 			return _database;
 		}
+
 		public bool RemoveTitle()
 		{
 			if (_database.Count == 0)
@@ -61,19 +59,17 @@ namespace Library.Persistence
 				Book toDeleteBook = _database[toDelete];
 				Console.WriteLine($"Czy na pewno usunąć {toDeleteBook.Title}? [TAK/NIE]");
 				string choice = Console.ReadLine();
-				if (String.Compare(choice, "TAK",true)!=0)
+				if (String.Compare(choice, "TAK", true) != 0)
 				{
 					_database.Remove(_database[toDelete]);
 					MenuUpdate();
 					return true;
 				}
-
 			} while (toDelete != -1);
 
 			return false;
-
-
 		}
+
 		public void ChangeState(string title, int stateChange)
 		{
 			if (_database.Count == 0)
@@ -92,31 +88,14 @@ namespace Library.Persistence
 				Console.WriteLine("Błąd zmiany statusu książki!");
 			}
 			Console.ReadKey();
-
 		}
+
 		public Book BookInfo(int id)
 		{
 			return _database[id];
 		}
-		public List<string> TitleAuthorProductAvaliableList()
-		{
-			if (_database.Count == 0)
-			{
-				return default;
-			}
 
-			List<string> list = new List<string>();
-			int maxDlugosc = _database.OrderByDescending(s => s.Title.Length).FirstOrDefault().Title.Length;
-
-
-			for (int i = 0; i < _database.Count; i++)
-			{
-				list.Add($"{_database[i].Title.PadRight(maxDlugosc + 5)}{_database[i].Author}");
-			}
-
-			return list;
-		}
-		public List<string> TitleAuthorProductsAvalliableList()
+		public List<string> ListTitleAuthorProductsAvaliable()
 		{
 			List<string> list = new List<string>();
 			int maxTitleLength = _database.OrderByDescending(s => s.Title.Length).FirstOrDefault().Title.Length;
@@ -130,15 +109,15 @@ namespace Library.Persistence
 			}
 			return list;
 		}
+
 		public void MenuUpdate()
 		{
-			menu.Konfiguruj(TitleAuthorProductAvaliableList());
-			//TODO2 pomyśleć tylko o update listy, zamiast zawsze tworzyć ją na nowo
+			menu.Konfiguruj(ListTitleAuthorProductsAvaliable());
 		}
+
 		public int DatabaseCount()
 		{
 			return _database.Count;
 		}
 	}
 }
-

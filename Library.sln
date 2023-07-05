@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Persistence", "Logi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UITools", "UITools\UITools.csproj", "{7395E77F-32FA-4D8E-8380-52340D693D6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryDbConnection", "..\LibraryDbConnection\LibraryDbConnection.csproj", "{C38A14B3-7DD1-44F1-A539-802F5B225050}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{7395E77F-32FA-4D8E-8380-52340D693D6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7395E77F-32FA-4D8E-8380-52340D693D6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7395E77F-32FA-4D8E-8380-52340D693D6B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C38A14B3-7DD1-44F1-A539-802F5B225050}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C38A14B3-7DD1-44F1-A539-802F5B225050}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C38A14B3-7DD1-44F1-A539-802F5B225050}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C38A14B3-7DD1-44F1-A539-802F5B225050}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

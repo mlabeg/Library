@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library.Domain;
+﻿using Library.Domain;
 using Library.Persistence;
 using MenuUITools;
-
+using System;
+using System.Linq;
 
 namespace Library.ConsoleApp
 {
@@ -15,9 +11,8 @@ namespace Library.ConsoleApp
 		private readonly OrdersRepository _ordersRepository;
 		private readonly BooksRepository _booksRepository;
 		private readonly int _booksRepositoryCount;
-		Menu booksMenu = new Menu();
-		Menu ordersMenu = new Menu();
-
+		private Menu booksMenu = new Menu();
+		private Menu orderMenu = new Menu();
 
 		public OrderService(OrdersRepository ordersRepository, BooksRepository booksRepository)
 		{
@@ -28,14 +23,33 @@ namespace Library.ConsoleApp
 
 		public bool PlaceOrder()
 		{
+			void ListCurrentOrder(Order currentOrder)
+			{
+				if (currentOrder.BooksOrderedList.Count == 0)
+				{
+					return;
+				}
+
+				Console.SetCursorPosition(0, _booksRepositoryCount + 3);
+				Console.WriteLine("Aktualne zamówienie: ");
+				foreach (var b in currentOrder.BooksOrderedList)
+				{
+					var book = b.GetOrderedBook();
+
+					Console.WriteLine($"{book.Title.PadRight(25)} " +
+						$"{book.Author.PadRight(20)}" +
+						$"ilość egzemplarzy: {b.Amount}");
+				}
+			}
 
 			if (_booksRepository.DatabaseCount() == 0)
 			{
 				Console.WriteLine("Brak książek do wypożyczenia");
 				return false;
 			}
+
 			Order order = new Order();
-			booksMenu.Konfiguruj(this._booksRepository.TitleAuthorProductsAvalliableList());
+			booksMenu.Konfiguruj(this._booksRepository.ListTitleAuthorProductsAvaliable());
 			var _booksRepositoryList = this._booksRepository.GetAll();
 
 			int amount;
@@ -45,11 +59,8 @@ namespace Library.ConsoleApp
 			do
 			{
 				Console.Clear();
-				if (order.BooksOrderedList.Count != 0)
-				{
-					ListCurrentOrder(order);
-				}//TODO ? zastanów się czy nie lepiej wstawić linii 47 do powyższej funkcji - DRY, ale czy wywoływanie funkcji na puustym zamówieniu ma sens?
-					//TODO 3 sprawdz jeszcze te linijki, czy tu nie odwołujesz się do wszystkich zamówień zamiast tylko do tego obecnego?
+
+				ListCurrentOrder(order);
 
 				positionChosen = booksMenu.Wyswietl();
 
@@ -65,7 +76,7 @@ namespace Library.ConsoleApp
 
 						if (amount <= 0)
 						{
-							Console.WriteLine("Ilość musi być mniejsza niż 0!");
+							Console.WriteLine("Ilość musi być większa niż 0!");
 						}
 						else if (amount > booksAvailable)
 						{
@@ -73,22 +84,19 @@ namespace Library.ConsoleApp
 						}
 						else
 						{
-
 							var orderPosition = order.BooksOrderedList.FirstOrDefault(b => b._bookOrdered == _booksRepositoryList[positionChosen]);
 							if (orderPosition != null)
 							{
-								orderPosition.NumerOrdered += amount;
+								orderPosition.Amount += amount;
 							}
 							else
 							{
 								BookOrdered _bookOrdered = new BookOrdered(_booksRepositoryList[positionChosen], amount);
 								_booksRepositoryList[positionChosen].ProductsAvailable -= amount;
 								order.BooksOrderedList.Add(_bookOrdered);
-								booksMenu.Konfiguruj(this._booksRepository.TitleAuthorProductsAvalliableList());
+								booksMenu.Konfiguruj(this._booksRepository.ListTitleAuthorProductsAvaliable());
 							}
-
 						}
-
 					}
 					else
 					{
@@ -103,10 +111,8 @@ namespace Library.ConsoleApp
 
 				do
 				{
-					if (order.BooksOrderedList.Count != 0)
-					{
-						ListCurrentOrder(order);
-					}
+					ListCurrentOrder(order);
+
 					Console.WriteLine("\nWybierz akcje: \n Add \n End");
 					action = Console.ReadLine();
 					if (CheckAction(action))
@@ -126,30 +132,25 @@ namespace Library.ConsoleApp
 			return true;
 		}
 
+		//private void ListCurrentOrder(Order order)
+		//{
+		//	Console.SetCursorPosition(0, _booksRepositoryCount + 3);
+		//	Console.WriteLine("Aktualne zamówienie: ");
+		//	foreach (var b in order.BooksOrderedList)
+		//	{
+		//		var book = b.GetOrderedBook();
 
-
-
-		private void ListCurrentOrder(Order order)
-		{
-			Console.SetCursorPosition(0, _booksRepositoryCount + 3);
-			Console.WriteLine("Aktualne zamówienie: ");
-			foreach (var b in order.BooksOrderedList)
-			{
-				var book = b.GetOrderedBook();
-
-				Console.WriteLine($"{book.Title.PadRight(25)} " +
-					$"{book.Author.PadRight(20)}" +
-					$"ilość egzemplarzy: {b.NumerOrdered}");
-			}
-		}
+		//		Console.WriteLine($"{book.Title.PadRight(25)} " +
+		//			$"{book.Author.PadRight(20)}" +
+		//			$"ilość egzemplarzy: {b.Amount}");
+		//	}
+		//}
 
 		public bool ListAll()
 		{
-
 			if (_ordersRepository.GetAll().Count == 0)
 			{
 				return false;
-
 			}
 
 			foreach (Order o in _ordersRepository.GetAll())
@@ -157,19 +158,16 @@ namespace Library.ConsoleApp
 				Console.WriteLine(o.Date + ": ");
 				foreach (BookOrdered b in o.BooksOrderedList)
 				{
-					Console.WriteLine($"\"{b._bookOrdered.Title}\" {b._bookOrdered.Author} wypożyczona ilość {b.NumerOrdered} sztuki");
+					Console.WriteLine($"\"{b._bookOrdered.Title}\" {b._bookOrdered.Author} wypożyczona ilość {b.Amount} sztuki");
 				}
 				Console.WriteLine();
-
 			}
 			return true;
-
-
 		}
 
 		public void ReturnOrder()
 		{
-			ordersMenu.Konfiguruj(this._ordersRepository.GetOrders());
+			orderMenu.Konfiguruj(this._ordersRepository.GetOrders());
 			Menu orderChoiceMenu = new Menu();
 			orderChoiceMenu.Konfiguruj(new string[] { "Zwroc cale zamowienie", "Zwroc wybrane pozycje" });
 			string choice = "";
@@ -178,7 +176,7 @@ namespace Library.ConsoleApp
 			do
 			{
 				Console.Clear();
-				toReturn = ordersMenu.Wyswietl();
+				toReturn = orderMenu.Wyswietl();
 				if (toReturn < 0)
 				{
 					return;
@@ -186,7 +184,7 @@ namespace Library.ConsoleApp
 				var rowCount = _ordersRepository.BooksAndOrdersCount();
 				returnAction = orderChoiceMenu.Wyswietl(rowCount);
 
-				Console.SetCursorPosition(0, rowCount+3);
+				Console.SetCursorPosition(0, rowCount + 3);
 				if (returnAction == 0)
 				{
 					Console.WriteLine("Na pewno zwrócić książki z wybranej pozycji? [Tak/Nie] ");
@@ -194,7 +192,8 @@ namespace Library.ConsoleApp
 				}
 				else if (returnAction == 1)
 				{
-					Console.WriteLine("Usługa w przygotowaniu!");
+					/*Console.WriteLine("Usługa w przygotowaniu!");*/
+					ReturnBooksFromOrder(_ordersRepository.GetOrder(toReturn));
 					Console.WriteLine("Naciśnij dowolny klawisz.");
 					Console.ReadKey();
 				}
@@ -206,24 +205,14 @@ namespace Library.ConsoleApp
 			}
 		}
 
-		public void ReturnBooksFromOrder()
+		public void ReturnBooksFromOrder(Order order)
 		{
-			ordersMenu.Konfiguruj(this._ordersRepository.GetOrders());
+			orderMenu.Konfiguruj(order.getBooksFromOrder());
 			Console.Clear();
-			bool[] toReturn = booksMenu.Zaznacz();
-			for (int i = 0; i < toReturn.Length; i++)
-			{
-				if (toReturn[i])
-				{
-
-				}
-			}
-
+			bool[] chosenToReturn = orderMenu.Zaznacz();
+			order.returnBooksFromOrder(chosenToReturn);
 		}
-
-
-
 	}
 }
-//TODO 3? możliwość zwrotu pojedynczych książek za zamówienia - trochę już pod to napisałeś
 
+//TODO 3? możliwość zwrotu pojedynczych książek za zamówienia - trochę już pod to napisałeś

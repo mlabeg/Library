@@ -1,16 +1,20 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
-using System.Data.OleDb;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Remoting.Messaging;
+using System.Xml;
+using System.Windows.Forms;
 
 namespace MenuUITools
 {
 	public class Menu
 	{
 		private String[] elementy;
-		public int najdluzszyElement = 0;
+		public int najdluzszyElement;
+		public Menu()
+		{
+			najdluzszyElement = 0;
+		}
 
 		public void Konfiguruj(string[] elementyMenu)
 		{
@@ -31,12 +35,17 @@ namespace MenuUITools
 			}
 		}
 
+		public void Uaktualnij(string[] elementyMenu)
+		{
+			elementy= elementyMenu;
+		}
+
 		public void Konfiguruj(List<string> lista)
 		{
 			elementy = lista.ToArray();
-			Konfiguruj(elementy);
-
+			Uaktualnij(elementy);
 		}
+
 		public int Wyswietl()
 		{
 			// Console.Clear();
@@ -62,7 +71,6 @@ namespace MenuUITools
 						Console.WriteLine(elementy[i].PadRight(najdluzszyElement + 2));
 					}
 
-
 					keyInfo = Console.ReadKey();
 
 					if ((keyInfo.Key == ConsoleKey.UpArrow && wybrany == 0) || keyInfo.Key == ConsoleKey.End)
@@ -85,7 +93,6 @@ namespace MenuUITools
 					{
 						wybrany = -1;
 					}
-
 				} while (keyInfo.Key != ConsoleKey.Enter && keyInfo.Key != ConsoleKey.Escape);
 			}
 			Console.ResetColor();
@@ -118,7 +125,6 @@ namespace MenuUITools
 						Console.WriteLine(elementy[i].PadRight(najdluzszyElement + 2));
 					}
 
-
 					keyInfo = Console.ReadKey();
 
 					if ((keyInfo.Key == ConsoleKey.UpArrow && wybrany == 0) || keyInfo.Key == ConsoleKey.End)
@@ -141,7 +147,6 @@ namespace MenuUITools
 					{
 						wybrany = -1;
 					}
-
 				} while (keyInfo.Key != ConsoleKey.Enter && keyInfo.Key != ConsoleKey.Escape);
 			}
 			else
@@ -153,27 +158,30 @@ namespace MenuUITools
 			Console.ResetColor();
 			return wybrany;
 		}
-		
+
 		public bool[] Zaznacz()
 		{
 			bool[] wybrane = new bool[elementy.Length];
 
 			int wybrany = 0;
+			bool przerwijPetle = false;
 			if (elementy != null)
 			{
 				ConsoleKeyInfo keyInfo;
 				Console.BackgroundColor = ConsoleColor.DarkBlue;
-
+				
 				do
 				{
-
-
 					Console.SetCursorPosition(0, 0);
 					for (int i = 0; i < elementy.Length; i++)
 					{
-						if (wybrane[i])
+						if (wybrane[i] && wybrany == i)
 						{
 							Console.BackgroundColor = ConsoleColor.Green;
+						}
+						else if (wybrane[i])
+						{
+							Console.BackgroundColor = ConsoleColor.DarkGreen;
 						}
 						else if (i == wybrany)
 						{
@@ -185,7 +193,8 @@ namespace MenuUITools
 						}
 						Console.WriteLine(elementy[i].PadRight(najdluzszyElement + 2));
 					}
-
+					Console.BackgroundColor = ConsoleColor.Black;
+					Console.WriteLine("\nNaciśnij \"K\" aby zatwierdzić wybór.");
 
 					keyInfo = Console.ReadKey();
 
@@ -205,25 +214,28 @@ namespace MenuUITools
 					{
 						wybrany++;
 					}
-					if (keyInfo.Key != ConsoleKey.Enter)
+					else if (keyInfo.Key == ConsoleKey.Enter)
 					{
 						wybrane[wybrany] = !wybrane[wybrany];
 					}
-					//if (keyInfo.Key != ConsoleKey.K)
-					//               {
-
-					//               }
+					else if (keyInfo.Key == ConsoleKey.K)
+					{
+						Console.WriteLine("\nCzy zwrócić wybrane pozycje z zamówienia? [TAK/NIE]");
+						string choice = Console.ReadLine();
+						if (String.Compare(choice, "TAK", true) == 0)
+						{
+							przerwijPetle = true;							
+						}
+					}
 					else if (keyInfo.Key == ConsoleKey.Escape)
 					{
 						wybrany = -1;
 					}
-
-				} while (keyInfo.Key != ConsoleKey.K && keyInfo.Key != ConsoleKey.Escape);
+				} while (!przerwijPetle && keyInfo.Key != ConsoleKey.Escape);
 			}
 			Console.ResetColor();
 
 			return wybrane;
 		}
-
 	}
 }
