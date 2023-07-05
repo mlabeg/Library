@@ -132,20 +132,6 @@ namespace Library.ConsoleApp
 			return true;
 		}
 
-		//private void ListCurrentOrder(Order order)
-		//{
-		//	Console.SetCursorPosition(0, _booksRepositoryCount + 3);
-		//	Console.WriteLine("Aktualne zamówienie: ");
-		//	foreach (var b in order.BooksOrderedList)
-		//	{
-		//		var book = b.GetOrderedBook();
-
-		//		Console.WriteLine($"{book.Title.PadRight(25)} " +
-		//			$"{book.Author.PadRight(20)}" +
-		//			$"ilość egzemplarzy: {b.Amount}");
-		//	}
-		//}
-
 		public bool ListAll()
 		{
 			if (_ordersRepository.GetAll().Count == 0)
@@ -192,7 +178,6 @@ namespace Library.ConsoleApp
 				}
 				else if (returnAction == 1)
 				{
-					/*Console.WriteLine("Usługa w przygotowaniu!");*/
 					ReturnBooksFromOrder(_ordersRepository.GetOrder(toReturn));
 					choice = "TAK";
 				}
@@ -214,5 +199,6 @@ namespace Library.ConsoleApp
 	}
 }
 
-//TODO 3? możliwość zwrotu pojedynczych książek za zamówienia - trochę już pod to napisałeś
-//TODO
+//TODO 4 możliwość zwrotu określonej liczby książek z konkretnej pozycji danego zamówienia
+
+//TODO PYTANIA czy tworząc obiekt klasy OrderService powinienem wstrzyknąć do niego obiekt booksMenu z klasy BooksRepostory?

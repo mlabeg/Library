@@ -8,7 +8,7 @@ namespace Library.Persistence
 {
 	public class BooksRepository
 	{
-		public Menu menu = new Menu();
+		public Menu booksMenu = new Menu();
 		private readonly List<Book> _database = new List<Book>();
 
 		public BooksRepository()
@@ -51,7 +51,7 @@ namespace Library.Persistence
 			do
 			{
 				Console.Clear();
-				toDelete = menu.Wyswietl();
+				toDelete = booksMenu.Wyswietl();
 				if (toDelete == -1)
 				{
 					return false;
@@ -95,6 +95,11 @@ namespace Library.Persistence
 			return _database[id];
 		}
 
+		public void GetBookFullInfo(int id)
+		{
+			_database[id].getFullInfo();
+		}
+
 		public List<string> ListTitleAuthorProductsAvaliable()
 		{
 			List<string> list = new List<string>();
@@ -112,7 +117,7 @@ namespace Library.Persistence
 
 		public void MenuUpdate()
 		{
-			menu.Konfiguruj(ListTitleAuthorProductsAvaliable());
+			booksMenu.Konfiguruj(ListTitleAuthorProductsAvaliable());
 		}
 
 		public int DatabaseCount()

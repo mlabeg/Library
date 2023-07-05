@@ -51,6 +51,5 @@ namespace Library.Persistence
 	}
 }
 
-//TODO 0 dodać kilka zamówień w konstruktorze
 //TODO 0 przejrzeć wszystkie nieużywane metody i je usunąć
 // TODO 0 sprawdzić konwencję nazywania zmiennych 

@@ -4,6 +4,7 @@ using MenuUITools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Serialization;
 
 namespace Library.ConsoleApp
 {
@@ -66,7 +67,7 @@ namespace Library.ConsoleApp
 			_repository.RemoveTitle();
 		}
 
-		internal bool ListBooks()
+		internal bool ListBooks1()
 		{
 			List<Book> repository = _repository.GetAll();
 
@@ -100,9 +101,26 @@ namespace Library.ConsoleApp
 			return true;
 		}
 
-		public bool ListBooks1()
+		public bool ListBooks()
 		{
+			if (_repository.DatabaseCount() == 0)
+			{
+				return false;
+			}
+			menu.Konfiguruj(_repository.ListTitleAuthorProductsAvaliable());
+			int choice;
+			do
+			{
+				Console.Clear();
+				choice = menu.Wyswietl();
+				Console.WriteLine();
+				if (choice > 0)
+				{
+					_repository.GetBookFullInfo(choice);
+				}
+			} while (choice != -1);
 
+			return true;
 		}
 		internal void ChangeStat()
 		{
