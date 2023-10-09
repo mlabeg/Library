@@ -1,0 +1,27 @@
+Library.ConsoleApp
+	internal class BooksService:
+
+- //TODO 4 dodanie mo¿liwoœci edycji ju¿ istnij¹cych ksi¹zek; w sumie mo¿na to za³atwiæ za jednym zamachem u¿ywaj¹c rozwi¹znia z zesz³ego semestru
+
+
+
+namespace Library.ConsoleApp
+	internal class OrderService
+
+- //TODO 4 mo¿liwoœæ zwrotu okreœlonej liczby ksi¹¿ek z konkretnej pozycji danego zamówienia
+
+-//TODO PYTANIA czy tworz¹c obiekt klasy OrderService powinienem wstrzykn¹æ do niego obiekt booksMenu z klasy BooksRepostory?
+
+
+
+namespace Library.Domain
+	public class Order
+
+- //TODO 9  po dodaniu autentyfikacji mo¿na tutaj dodaæ infomacjê o tym kto to zaawia i wyœwietlaæ wszystkie rezerwacje wg daty/uzytkownika/czego tylko chcesz
+
+
+namespace Library.Presistence
+	public class LibrarySeeder
+
+- pokombinowaæ z dziedziczniem i interfejsami, tak ¿eby zmienne "database" w OrderRepository oraz BooksRepository mog³y byæ private
+

@@ -42,7 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IMenuKonfiguruj.cs" />
+    <Compile Include="IMenuUaktualnij.cs" />
+    <Compile Include="IMenuWyswietl.cs" />
+    <Compile Include="IMenuZaznacz.cs" />
     <Compile Include="Menu.cs" />
+    <Compile Include="MenuKonfiguruj.cs" />
+    <Compile Include="MenuUaktualnij.cs" />
+    <Compile Include="MenuWyswietl.cs" />
+    <Compile Include="MenuZaznacz.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
