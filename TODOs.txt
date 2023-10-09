@@ -25,3 +25,10 @@ namespace Library.Presistence
 
 - pokombinowaæ z dziedziczniem i interfejsami, tak ¿eby zmienne "database" w OrderRepository oraz BooksRepository mog³y byæ private
 
+
+namespace MenuUITools
+    public class Menu
+
+- przy wyœwietlaniu obecnego zamówienia tekst pojawia siê na wyœwietlanych ksi¹¿kach
+
+
