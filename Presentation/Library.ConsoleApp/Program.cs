@@ -38,7 +38,6 @@ namespace Library.ConsoleApp
                             booksService.Remove();
                             Console.ReadKey();
                             break;
-                        //TODO sprawdzić poprawność działania funkcji, po wybraniu "nie" książka i tak jest usuwana
 
                         case 2:                         //lista książek
                             if (!booksService.ListBooks())
