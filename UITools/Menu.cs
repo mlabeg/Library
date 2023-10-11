@@ -25,35 +25,20 @@ namespace MenuUITools
             _menuKonfiguruj = new MenuKonfiguruj(this);
         }
 
-        //Na ten moment nie wiem jak zbić to w jedną metodę, refaktor jak na coś wpadniesz
-        public void Konfiguruj(string[] elementyMenu)
-        {
-            _menuKonfiguruj.Konfiguruj(elementyMenu);//System.NullReferenceException
-        }
-
-        public void Konfiguruj(List<string> lista)
+        public void Konfiguruj(IEnumerable<string> lista)
         {
             _menuKonfiguruj.Konfiguruj(lista);
             _menuUaktualnij.Uaktualnij(elementy);
         }
-
-        //UP typy generyczne?
 
         public void Uaktualnij(string[] elementyMenu)
         {
             _menuUaktualnij.Uaktualnij(elementyMenu);
         }
 
-        public int Wyswietl(int? wiersz = null)
+        public int Wyswietl(int? wiersz = 0)
         {
-            if (wiersz.HasValue)
-            {
-                return _menuWyswietl.Wyswietl(wiersz.Value);
-            }
-            else
-            {
-                return _menuWyswietl.Wyswietl();
-            }
+            return _menuWyswietl.Wyswietl(wiersz.Value);
         }
 
         public bool[] Zaznacz()

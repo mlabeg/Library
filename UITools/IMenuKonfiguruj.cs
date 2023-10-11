@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,6 @@ namespace Gebal.UITools
 {
     internal interface IMenuKonfiguruj
     {
-        void Konfiguruj(string[] elementyMenu);
-
-        void Konfiguruj(List<string> lista);
+        void Konfiguruj(IEnumerable<string> values);
     }
 }

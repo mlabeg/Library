@@ -8,7 +8,7 @@ namespace Gebal.UITools
 {
     internal interface IMenuWyswietl
     {
-        int Wyswietl();
+        // int Wyswietl();
 
         int Wyswietl(int wiersz);
     }

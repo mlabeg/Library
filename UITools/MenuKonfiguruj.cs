@@ -1,5 +1,6 @@
 ﻿using MenuUITools;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,28 +18,26 @@ namespace Gebal.UITools
             _menu = menu;
         }
 
-        public void Konfiguruj(string[] elementyMenu)
+        public void Konfiguruj(IEnumerable<string> elementyMenu)
         {
-            if (elementyMenu.Length <= 100)
+            var type = elementyMenu.GetType();
+
+            if (type.IsArray)
             {
-                _menu.elementy = elementyMenu;
-                for (int i = 0; i < _menu.elementy.Length; i++)
-                {
-                    if (elementyMenu[i].Length > _menu.najdluzszyElement)
-                    {
-                        _menu.najdluzszyElement = elementyMenu[i].Length;
-                    }
-                }
+                _menu.elementy = (string[])elementyMenu;
             }
             else
             {
-                _menu.elementy = new string[0];
+                _menu.elementy = elementyMenu.ToArray();
             }
-        }
 
-        public void Konfiguruj(List<string> lista)
-        {
-            _menu.elementy = lista.ToArray();
+            for (int i = 0; i < _menu.elementy.Length; i++)
+            {
+                if (_menu.elementy[i].Length > _menu.najdluzszyElement)
+                {
+                    _menu.najdluzszyElement = _menu.elementy[i].Length;
+                }
+            }
         }
     }
 }
