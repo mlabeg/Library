@@ -4,18 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7C16C7DA-E207-4AC1-BCC9-60B3424EBAD1}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>Library.ConsoleApp</RootNamespace>
-    <AssemblyName>Library.ConsoleApp</AssemblyName>
+    <ProjectGuid>{FACCE4F4-6E0A-4ADD-8846-FB27DF175F5C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Library.Application</RootNamespace>
+    <AssemblyName>Library.Application</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -44,27 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Books\Commands\AddBook.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BooksService.cs" />
+    <Compile Include="Services\OrderService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Library.Application\Library.Application.csproj">
-      <Project>{facce4f4-6e0a-4add-8846-fb27df175f5c}</Project>
-      <Name>Library.Application</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Logic\Library.Domain\Library.Domain.csproj">
+    <ProjectReference Include="..\Logic\Library.Domain\Library.Domain.csproj">
       <Project>{e7bc0a8c-1266-489b-a75d-58440e5e2837}</Project>
       <Name>Library.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Logic\Library.Persistence\Library.Persistence.csproj">
+    <ProjectReference Include="..\Logic\Library.Persistence\Library.Persistence.csproj">
       <Project>{c222f882-e81d-422d-a739-6f60ed19510b}</Project>
       <Name>Library.Persistence</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\UITools\UITools.csproj">
-      <Project>{7395E77F-32FA-4D8E-8380-52340D693D6B}</Project>
+    <ProjectReference Include="..\UITools\UITools.csproj">
+      <Project>{7395e77f-32fa-4d8e-8380-52340d693d6b}</Project>
       <Name>UITools</Name>
     </ProjectReference>
   </ItemGroup>
