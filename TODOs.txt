@@ -25,11 +25,15 @@ namespace Library.Presistence
 
 - pokombinowaæ z dziedziczniem i interfejsami, tak ¿eby zmienne "database" w OrderRepository oraz BooksRepository mog³y byæ private
 
+
+namespace ?
+	class?
+
 - przy wyœwietlaniu obecnego zamówienia tekst pojawia siê na wyœwietlanych ksi¹¿kach
 
 
 namespace Library.ConsoleApp
 	internal class BooksService
 
- - sprawdziæ poprawnoœæ dzia³ania meody Rmove(), pzy wyborze "nie" nadal usuwa pozycjê
+ - sprawdziæ poprawnoœæ dzia³ania meody Rmove(), przy wyborze "nie" nadal usuwa pozycjê
 
