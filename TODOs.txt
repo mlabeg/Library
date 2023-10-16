@@ -110,3 +110,5 @@ namespace Library.ConsoleApp
 
  - sprawdziæ poprawnoœæ dzia³ania meody Rmove(), przy wyborze "nie" nadal usuwa pozycjê
 
+namespace [wiele]:
+	podzieliæ projekt wg zasad SOLID
