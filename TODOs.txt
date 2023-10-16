@@ -1,4 +1,11 @@
-<<<<<<< HEAD
+namespace Library.ConsoleApp
+	internal class OrderService
+
+- //TODO 4 mo¿liwoœæ zwrotu okreœlonej liczby ksi¹¿ek z konkretnej pozycji danego zamówienia
+
+-//TODO PYTANIA czy tworz¹c obiekt klasy OrderService powinienem wstrzykn¹æ do niego obiekt booksMenu z klasy BooksRepostory?
+
+
 Library.ConsoleApp
 	internal class BooksService:
 
@@ -78,4 +85,28 @@ namespace Library.ConsoleApp
 
  - sprawdziæ poprawnoœæ dzia³ania meody Rmove(), przy wyborze "nie" nadal usuwa pozycjê
 
->>>>>>> ef600780df6ce66a2f841783edd6a3db0cb5b84a
+
+
+namespace Library.Domain
+	public class Order
+
+- //TODO 9  po dodaniu autentyfikacji mo¿na tutaj dodaæ infomacjê o tym kto to zaawia i wyœwietlaæ wszystkie rezerwacje wg daty/uzytkownika/czego tylko chcesz
+
+
+namespace Library.Presistence
+	public class LibrarySeeder
+
+- pokombinowaæ z dziedziczniem i interfejsami, tak ¿eby zmienne "database" w OrderRepository oraz BooksRepository mog³y byæ private
+
+
+namespace ?
+	class?
+
+- przy wyœwietlaniu obecnego zamówienia tekst pojawia siê na wyœwietlanych ksi¹¿kach
+
+
+namespace Library.ConsoleApp
+	internal class BooksService
+
+ - sprawdziæ poprawnoœæ dzia³ania meody Rmove(), przy wyborze "nie" nadal usuwa pozycjê
+
